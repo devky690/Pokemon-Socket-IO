@@ -10,9 +10,7 @@ was selected
 
 4. Create a scoreboard
 
-5. Dont bother with tic tac toe tutorial
-
-6. Send a scoreboard with you lost or you win or you tied
+5. Send a scoreboard with you lost or you win or you tied
 after 10 rounds 
 
 */
