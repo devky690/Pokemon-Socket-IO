@@ -1,0 +1,48 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  margin: 100px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  border-radius: 0.5em;
+  background-color: grey;
+  width: 60vw;
+  height: 60vh;
+  min-height: 300px;
+}
+
+.resize {
+  width: 200px;
+  min-width: 100px;
+  max-height: 300px;
+  height: 200px;
+}
+
+li {
+  list-style-type: none;
+  margin: 20px;
+}
+
+button {
+  padding: 0.5em;
+  /* tblr */
+  margin: 10px 30px 30px 30px;
+  border-radius: 10px;
+  outline: none;
+  color: teal;
+}
+
+@media screen and (max-width: 750px) {
+  #container {
+    width: 80vw;
+  }
+  .resize {
+    width: 30vw;
+  }
+}
