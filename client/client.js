@@ -1,16 +1,8 @@
-/*1. Display all the cards for each user 
-no shuffling...make a gallery with css grid 
-with image tags...on sunday just setup gallery with pokemon
-and get the pokemon name to be console logged
+/* NEED TO DO 
 
-2. Dont bother with oop on this project
+1.Create a scoreboard
 
-3. Goal is just to add a pokemon gallery and just print which pokemon
-was selected
-
-4. Create a scoreboard
-
-5. Send a scoreboard with you lost or you win or you tied
+2.Send a scoreboard with you lost or you win or you tied
 after 10 rounds 
 
 */
@@ -113,6 +105,10 @@ async function setUpCards() {
   buttonOne.innerText = `I choose ${divOne.dataset.pokeName}!`;
   buttonTwo.innerText = `I choose ${divTwo.dataset.pokeName}!`;
 
+  // for the for loop later
+  buttonOne.classList.add("poke-btn");
+  buttonTwo.classList.add("poke-btn");
+
   listOne.appendChild(headerOne);
   listTwo.appendChild(headerTwo);
 
@@ -130,7 +126,44 @@ async function createGame() {
 
 createGame();
 
+//Add in room joins later
+const buttonSubmit = document.querySelector("#submit-btn");
+const roomSelect = document.querySelector("#room-select");
+buttonSubmit.addEventListener("click", () => {
+  //roomSelect.value is the option selected
+  console.log(roomSelect.value);
+  //socket.emit("join-room")
+});
+
 let otherPlayerMove = {};
+let playerMove = {};
+
+//to scale make use of event delegation and utilize e.target and
+//the data attributes to affect click output
+document.addEventListener("click", e => {
+  if (!e.target.matches(".poke-btn")) return;
+  let hasPrinted = false;
+  const div = e.target.previousElementSibling.previousElementSibling;
+  pokeObjects.forEach(poke => {
+    if (poke.name === div.dataset.pokeName && !hasPrinted) {
+      poke.printHi();
+      playerMove.type = poke.type;
+      playerMove.name = poke.name;
+      socket.emit(
+        "send-poke-info",
+        poke.name,
+        poke.type
+        //NEED TO CALL FUNCTION in CLIENT to use emit callback
+        //it wont be used right away if your going to use them
+      );
+      //break in case multiple pokemon objects with same name
+      hasPrinted = true;
+    }
+  });
+  console.log(div.dataset.pokeName);
+});
+
+//other client will see you as enemy due to broadcast.emit
 socket.on("receive-poke-info", (name, type) => {
   otherPlayerMove.name = name;
   otherPlayerMove.type = type;
@@ -139,23 +172,6 @@ socket.on("receive-poke-info", (name, type) => {
   );
 });
 
-socket.on("round-end", () => {
-  console.log("round completed");
-});
-
-//to scale make use of event delegation and utilize e.target and
-//the data attributes to affect click output
-document.addEventListener("click", e => {
-  if (!e.target.matches("button")) return;
-  let hasPrinted = false;
-  const div = e.target.previousElementSibling.previousElementSibling;
-  pokeObjects.forEach(poke => {
-    if (poke.name === div.dataset.pokeName && !hasPrinted) {
-      poke.printHi();
-      socket.emit("send-poke-info", poke.name, poke.type);
-      //break in case multiple pokemon objects with same name
-      hasPrinted = true;
-    }
-  });
-  console.log(div.dataset.pokeName);
+socket.on("game-end", message => {
+  console.log(message);
 });

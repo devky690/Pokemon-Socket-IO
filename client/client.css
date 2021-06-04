@@ -29,7 +29,7 @@ li {
   margin: 20px;
 }
 
-button {
+.poke-btn {
   border: none;
   cursor: pointer;
   padding: 0.5em;

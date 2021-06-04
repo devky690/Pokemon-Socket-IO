@@ -11,13 +11,3 @@ export default class Pokemon {
     console.log(`I am ${this.name}, lets battle!`);
   }
 }
-
-// export function checkWin(playerOnePoke, playerTwoPoke) {
-//   if (
-//     (playerOnePoke.dataset.pokeType === "electric" &&
-//     playerTwoPoke === "Water") || (playerOnePoke.dataset.pokeType)
-//   ) {
-//     return true;
-//   }
-//   if(player)
-// }
