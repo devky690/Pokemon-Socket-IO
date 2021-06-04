@@ -33,11 +33,12 @@ io.on("connection", socket => {
       //last move won...corresponds to index
       if (result === 1) {
         socket.emit("game-end", "You WON!!!!");
-        socket.broadcast.to(playerMoves[0].id)
+        socket.broadcast.to(playerMoves[0].id).emit("game-end", "You lost");
       }
       // first move won...corresponds to index
       if (result === 0) {
-        socket.broadcast.to(playerMoves[0].id).emit("game-end", "Yo Won");
+        socket.broadcast.to(playerMoves[0].id).emit("game-end", "You Won");
+        socket.emit("game-end", "You lost");
       }
       if (result === 2) {
         io.emit("game-end", "You tied!!!!");
