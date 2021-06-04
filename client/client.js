@@ -14,8 +14,11 @@ was selected
 after 10 rounds 
 
 */
+
+import { io } from "socket.io-client";
 import Pokemon from "./pokemon.js";
 const POKE = ["pikachu", "charizard", "bulbasaur", "squirtle", "pidgeot"];
+const socket = io("http://localhost:3000");
 
 let playingCardData = [];
 //loop through pokeObjects while checking the data set of the element before
@@ -117,6 +120,29 @@ async function setUpCards() {
   listTwo.appendChild(buttonTwo);
 }
 
+socket.on("connect", () => {
+  console.log("Connected");
+});
+
+async function createGame() {
+  await setUpCards();
+}
+
+createGame();
+
+let otherPlayerMove = {};
+socket.on("receive-poke-info", (name, type) => {
+  otherPlayerMove.name = name;
+  otherPlayerMove.type = type;
+  console.log(
+    `Enemy chose ${otherPlayerMove.name} with the ${otherPlayerMove.type} type`
+  );
+});
+
+socket.on("round-end", () => {
+  console.log("round completed");
+});
+
 //to scale make use of event delegation and utilize e.target and
 //the data attributes to affect click output
 document.addEventListener("click", e => {
@@ -126,15 +152,10 @@ document.addEventListener("click", e => {
   pokeObjects.forEach(poke => {
     if (poke.name === div.dataset.pokeName && !hasPrinted) {
       poke.printHi();
+      socket.emit("send-poke-info", poke.name, poke.type);
       //break in case multiple pokemon objects with same name
       hasPrinted = true;
     }
   });
   console.log(div.dataset.pokeName);
 });
-
-async function createGame() {
-  await setUpCards();
-}
-
-createGame();

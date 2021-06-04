@@ -30,12 +30,15 @@ li {
 }
 
 button {
+  border: none;
+  cursor: pointer;
   padding: 0.5em;
   /* tblr */
   margin: 10px 30px 30px 30px;
   border-radius: 10px;
   outline: none;
   color: teal;
+  border: 1px solid teal;
 }
 
 @media screen and (max-width: 750px) {
