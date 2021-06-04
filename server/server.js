@@ -18,7 +18,9 @@ io.on("connection", socket => {
     if (playerMoves.length === 0) {
       playerMoves.push(playerMove);
     }
-    //to make last move isnt from the previous user
+    //to make sure last move isnt from the previous user
+    //cant use a hashset because if user used a different pokemon it would count as a
+    //different move
     if (playerMoves.length !== 0 && playerMoves[0].id !== playerMove.id) {
       playerMoves.push(playerMove);
     }
