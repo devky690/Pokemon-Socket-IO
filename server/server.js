@@ -31,20 +31,32 @@ io.on("connection", socket => {
       //state win or lose here...nothing needs to go to the server
       //just append div block to gameboard
       const result = checkWin(playerMoves[1], playerMoves[0]);
+      //store here to prevent undefined from timing issues
+      const moveType0 = playerMoves[0].type;
+      const moveType1 = playerMoves[1].type;
       console.log(result);
       //last move won...corresponds to index
       if (result === 1) {
-        socket.emit("game-end", "You WON!!!!");
-        socket.broadcast.to(playerMoves[0].id).emit("game-end", "You lost");
+        socket.emit("game-end", "You WON!!!!", moveType0);
+        socket.broadcast
+          .to(playerMoves[0].id)
+          .emit("game-end", "You lost", moveType1);
       }
       // first move won...corresponds to index
       if (result === 0) {
-        socket.broadcast.to(playerMoves[0].id).emit("game-end", "You Won");
-        socket.emit("game-end", "You lost");
+        socket.broadcast
+          .to(playerMoves[0].id)
+          .emit("game-end", "You Won", moveType1);
+        socket.emit("game-end", "You lost", moveType0);
       }
       if (result === 2) {
-        io.emit("game-end", "You tied!!!!");
+        io.emit("game-end", "You tied!!!!", "Same pokemon types were played");
       }
+
+      //so on refresh we dont keep the playerMove
+      socket.on("disconnect", () => {
+        while (playerMoves.length !== 0) playerMoves.pop();
+      });
 
       //reset the game
       playerMoves.pop();

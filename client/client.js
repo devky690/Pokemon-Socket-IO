@@ -34,6 +34,7 @@ const headerOne = document.createElement("h2");
 const headerTwo = document.createElement("h2");
 const buttonOne = document.createElement("button");
 const buttonTwo = document.createElement("button");
+const chatBoard = document.querySelector("#chat-board");
 
 async function getPokemon() {
   const pokeOneIndex = Math.floor(Math.random() * POKE.length);
@@ -135,7 +136,9 @@ buttonSubmit.addEventListener("click", () => {
   //socket.emit("join-room")
 });
 
+//you will be seen as other/enemy player
 let otherPlayerMove = {};
+//this client's move
 let playerMove = {};
 
 //to scale make use of event delegation and utilize e.target and
@@ -170,8 +173,18 @@ socket.on("receive-poke-info", (name, type) => {
   console.log(
     `Enemy chose ${otherPlayerMove.name} with the ${otherPlayerMove.type} type`
   );
+  chatBoard.classList.remove("chat-hide");
+  chatBoard.classList.add("chat-reveal");
+  const chatMsg = document.createElement("div");
+  chatMsg.innerText = "Enemy has chosen";
+  chatBoard.appendChild(chatMsg);
 });
 
-socket.on("game-end", message => {
-  console.log(message);
+socket.on("game-end", (message, enemyPokeType) => {
+  console.log(
+    `${message} Because the enemy played a pokemon with the ${enemyPokeType} type`
+  );
+  const chatMsg = document.createElement("div");
+  chatMsg.innerText = `${message} Because the enemy played a pokemon with the ${enemyPokeType} type`;
+  chatBoard.appendChild(chatMsg);
 });

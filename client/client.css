@@ -41,6 +41,11 @@ li {
   border: 1px solid teal;
 }
 
+.game {
+  display: flex;
+  margin: auto;
+}
+
 @media screen and (max-width: 750px) {
   #container {
     width: 80vw;
