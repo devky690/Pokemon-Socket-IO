@@ -97,3 +97,19 @@ function checkWin(lastPlayer, otherPlayer) {
     return 2;
   }
 }
+
+//To create new Rooms
+// const map = new Map();
+// let count = 0;
+// function newRoom() {
+//   const playerMoves = [];
+//   map.set(count, playerMoves);
+//   playerMoves.push(count);
+//   console.log(playerMoves);
+//   count++;
+// }
+
+// newRoom();
+// newRoom();
+// newRoom();
+// newRoom();
