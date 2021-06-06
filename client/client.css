@@ -28,6 +28,8 @@ body {
   width: 60vw;
   height: 60vh;
   min-height: 300px;
+  flex: 1 5 5;
+  flex-wrap: wrap;
 }
 .room-container {
   display: flex;
@@ -56,6 +58,11 @@ body {
   cursor: pointer;
 }
 
+#shuffle-btn {
+  align-self: flex-end;
+  font-size: 16px;
+}
+
 .resize {
   width: 200px;
   min-width: 100px;
@@ -65,10 +72,11 @@ body {
 
 li {
   list-style-type: none;
-  margin: 20px;
+  margin: 20px 50px;
 }
 
-.poke-btn {
+.poke-btn,
+#shuffle-btn {
   border: none;
   cursor: pointer;
   padding: 0.5em;
@@ -97,8 +105,20 @@ li {
 
 @media screen and (max-width: 400px) {
   #container {
+    flex-wrap: nowrap;
     flex-direction: column;
-    min-height: 600px;
-    justify-content: space-evenly;
+    min-height: 700px;
+    justify-content: center;
+  }
+  li {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+@media screen and (max-width: 1215px) {
+  #container {
+    flex: 1 10 10;
+    min-height: 700px;
   }
 }
