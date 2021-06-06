@@ -38,7 +38,7 @@ const chatBoard = document.querySelector("#chat-board");
 
 async function getPokemon() {
   const pokeOneIndex = Math.floor(Math.random() * POKE.length);
-  let pokeTwoIndex = Math.floor(Math.random() * POKE.length);
+  const pokeTwoIndex = Math.floor(Math.random() * POKE.length);
   const pokeOne = POKE[pokeOneIndex];
   const pokeTwo = POKE[pokeTwoIndex];
   const responseOne = await fetch(
@@ -88,20 +88,11 @@ async function setUpCards() {
   imgOne.classList.add("resize");
   imgTwo.classList.add("resize");
 
-  headerOne.innerText = divOne.dataset.pokeName;
-  headerTwo.innerText = divTwo.dataset.pokeName;
-
   divOne.appendChild(imgOne);
   divTwo.appendChild(imgTwo);
 
   listOne.appendChild(divOne);
   listTwo.appendChild(divTwo);
-
-  headerOne.style.color = "white";
-  headerOne.style.paddingLeft = "50px";
-
-  headerTwo.style.color = "white";
-  headerTwo.style.paddingLeft = "50px";
 
   buttonOne.innerText = `I choose ${divOne.dataset.pokeName}!`;
   buttonTwo.innerText = `I choose ${divTwo.dataset.pokeName}!`;

@@ -4,6 +4,19 @@
   padding: 0;
 }
 
+body {
+  background-image: url("./img/background.png");
+  color: #fff;
+}
+
+.logo {
+  max-width: 800px;
+  width: 70vw;
+  display: block;
+  margin: auto;
+  padding-top: 30px;
+}
+
 #container {
   margin: 100px auto;
   display: flex;
@@ -11,10 +24,36 @@
   align-items: center;
   border: 2px solid black;
   border-radius: 0.5em;
-  background-color: grey;
+  background-color: #fff;
   width: 60vw;
   height: 60vh;
   min-height: 300px;
+}
+.room-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50px 0;
+}
+
+.room-label {
+  font-size: 32px;
+  font-weight: 800;
+}
+
+#room-select {
+  padding: 0.5em;
+  outline: none;
+  font-size: 16px;
+}
+
+#submit-btn {
+  padding: 0.6em;
+  outline: none;
+  border: 1px solid rgba(11, 27, 179, 0.603);
+  border-radius: 0.3em;
+  font-size: 16px;
+  cursor: pointer;
 }
 
 .resize {
@@ -39,6 +78,7 @@ li {
   outline: none;
   color: teal;
   border: 1px solid teal;
+  background-color: #fff;
 }
 
 .game {
@@ -52,5 +92,13 @@ li {
   }
   .resize {
     width: 30vw;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  #container {
+    flex-direction: column;
+    min-height: 600px;
+    justify-content: space-evenly;
   }
 }
