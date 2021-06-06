@@ -58,6 +58,29 @@ body {
   cursor: pointer;
 }
 
+#chat-board {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: column;
+  border: 1px solid;
+  width: 60vw;
+  height: 30vh;
+  margin: 50px auto;
+  background-color: #ffcb05;
+  border: 2px solid black;
+  overflow-y: scroll;
+}
+
+.chat-msg {
+  background-color: #2a75bb;
+  color: white !important;
+  font-weight: 800;
+  font-size: 16px;
+  font-family: "Times New Roman", Times, serif;
+  min-height: 40px;
+}
+
 #shuffle-btn {
   align-self: flex-end;
   font-size: 16px;

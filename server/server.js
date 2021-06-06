@@ -50,7 +50,7 @@ io.on("connection", socket => {
         socket.emit("game-end", "You lost", moveType0);
       }
       if (result === 2) {
-        io.emit("game-end", "You tied!!!!", "Same pokemon types were played");
+        io.emit("game-end", "You tied!!!!", moveType0);
       }
 
       //so on refresh we dont keep the playerMove
@@ -59,8 +59,7 @@ io.on("connection", socket => {
       });
 
       //reset the game
-      playerMoves.pop();
-      playerMoves.pop();
+      while (playerMoves.length !== 0) playerMoves.pop();
     }
   });
   socket.on("join-room", room => {

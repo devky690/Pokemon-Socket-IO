@@ -9,20 +9,11 @@
     <script type="module" defer src="client.js"></script>
     <link rel = "stylesheet" href = "client.css"> </link>
   </head>
-  <style>
-    /* change this depending on whether pokemon info from client was sent
-    AKA the client made their move */
-    .chat-reveal{
-      display: block
-    }
-    .chat-hide{
-      display: none
-    }
 
-  </style>
   <body>
     <img class="logo" src="./img/Poke_Logo.png"/>
       <div class = "room-container">
+        
       <label class = "room-label">
         Rooms
         <select id="room-select">
@@ -33,6 +24,9 @@
         </select>
         <button type="submit" id="submit-btn">Join Room</button>
       </div>
+      <div id="chat-board">
+  
+      </div>
       <div id ="game">
       <div id="container">
         <button id="shuffle-btn">Shuffle</button>
@@ -42,9 +36,7 @@
         <li id="item-2">
         </li>
       </div>
-      <div id="chat-board" class="chat-hide">
-        
-      </div>
+
       </div>
   
   </body>

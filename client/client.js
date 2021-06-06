@@ -138,12 +138,12 @@ buttonShuffle.addEventListener("click", async () => {
 let otherPlayerMove = {};
 //this client's move
 let playerMove = {};
+let hasPrinted = false;
 
 //to scale make use of event delegation and utilize e.target and
 //the data attributes to affect click output
 document.addEventListener("click", e => {
   if (!e.target.matches(".poke-btn")) return;
-  let hasPrinted = false;
   const div = e.target.previousElementSibling.previousElementSibling;
   pokeObjects.forEach(poke => {
     if (poke.name === div.dataset.pokeName && !hasPrinted) {
@@ -171,9 +171,9 @@ socket.on("receive-poke-info", (name, type) => {
   console.log(
     `Enemy chose ${otherPlayerMove.name} with the ${otherPlayerMove.type} type`
   );
-  chatBoard.classList.remove("chat-hide");
-  chatBoard.classList.add("chat-reveal");
   const chatMsg = document.createElement("div");
+  chatMsg.style.color = "black";
+  chatMsg.classList.add("chat-msg");
   chatMsg.innerText = "Enemy has chosen";
   chatBoard.appendChild(chatMsg);
 });
@@ -183,6 +183,12 @@ socket.on("game-end", (message, enemyPokeType) => {
     `${message} Because the enemy played a pokemon with the ${enemyPokeType} type`
   );
   const chatMsg = document.createElement("div");
+  chatMsg.style.color = "black";
+  chatMsg.classList.add("chat-msg");
   chatMsg.innerText = `${message} Because the enemy played a pokemon with the ${enemyPokeType} type`;
   chatBoard.appendChild(chatMsg);
+  //so the user can choose their pokemon again and keep playing
+  hasPrinted = false;
 });
+
+socket.on();
