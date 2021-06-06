@@ -7,8 +7,6 @@ const io = require("socket.io")(3000, {
 const playerMoves = [];
 
 io.on("connection", socket => {
-  console.log(socket.id);
-
   // remember emit callbacks need to be the last parameter!
   socket.on("send-poke-info", (name, type) => {
     socket.broadcast.emit("receive-poke-info", name, type);
@@ -62,24 +60,6 @@ io.on("connection", socket => {
       while (playerMoves.length !== 0) playerMoves.pop();
     }
   });
-  socket.on("join-room", room => {
-    //gets the number of clients connected to a room
-    const clients = io.sockets.adapter.rooms[room].sockets;
-    if (clients >= 2) {
-      socket.emit("join-room", "The room is full!");
-    } else {
-      socket.emit("join-room", `You have joined ${room}`);
-    }
-    socket.on("check-win", playerMove);
-  });
-
-  //   socket.on("if-game-end", room => {
-  //     // socket.emit("if-game-end", () => {
-  //     //   //should be using emit callback though
-  //     //   //with display message to update gameboard with a div
-  //     //   console.log("game end");
-  //     // });
-  //   });
 });
 
 function checkWin(lastPlayer, otherPlayer) {
