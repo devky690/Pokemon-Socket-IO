@@ -34,7 +34,6 @@ const headerOne = document.createElement("h2");
 const headerTwo = document.createElement("h2");
 const buttonOne = document.createElement("button");
 const buttonTwo = document.createElement("button");
-const chatBoard = document.querySelector("#chat-board");
 
 async function getPokemon() {
   const pokeOneIndex = Math.floor(Math.random() * POKE.length);
@@ -123,6 +122,8 @@ const buttonSubmit = document.querySelector("#submit-btn");
 const buttonShuffle = document.querySelector("#shuffle-btn");
 const buttonClearChat = document.querySelector("#clear-btn");
 const roomSelect = document.querySelector("#room-select");
+const chatBoard = document.querySelector("#chat-board");
+
 buttonSubmit.addEventListener("click", () => {
   //roomSelect.value is the option selected
   console.log(roomSelect.value);
@@ -135,10 +136,16 @@ buttonShuffle.addEventListener("click", async () => {
   await createGame();
 });
 
+buttonClearChat.addEventListener("click", () => {
+  //removes all child elements
+  chatBoard.innerHTML = "";
+});
+
 //you will be seen as other/enemy player
 let otherPlayerMove = {};
 //this client's move
 let playerMove = {};
+//decides if user can play or not
 let hasPrinted = false;
 
 //to scale make use of event delegation and utilize e.target and
