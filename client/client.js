@@ -121,6 +121,7 @@ createGame();
 //Add in room joins later
 const buttonSubmit = document.querySelector("#submit-btn");
 const buttonShuffle = document.querySelector("#shuffle-btn");
+const buttonClearChat = document.querySelector("#clear-btn");
 const roomSelect = document.querySelector("#room-select");
 buttonSubmit.addEventListener("click", () => {
   //roomSelect.value is the option selected
