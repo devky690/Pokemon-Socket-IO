@@ -120,11 +120,18 @@ createGame();
 
 //Add in room joins later
 const buttonSubmit = document.querySelector("#submit-btn");
+const buttonShuffle = document.querySelector("#shuffle-btn");
 const roomSelect = document.querySelector("#room-select");
 buttonSubmit.addEventListener("click", () => {
   //roomSelect.value is the option selected
   console.log(roomSelect.value);
   //socket.emit("join-room")
+});
+
+buttonShuffle.addEventListener("click", async () => {
+  while (playingCardData.length !== 0) playingCardData.pop();
+  await getPokemon();
+  await createGame();
 });
 
 //you will be seen as other/enemy player
