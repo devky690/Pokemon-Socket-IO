@@ -4,23 +4,28 @@ const io = require("socket.io")(3000, {
     origin: ["http://localhost:8080"],
   },
 });
-const playerMoves = [];
+
+const roomsMap = new Map();
 
 io.on("connection", socket => {
   // remember emit callbacks need to be the last parameter!
   socket.on("send-poke-info", (name, type) => {
-    socket.broadcast.emit("receive-poke-info", name, type);
+    socket.broadcast.to(socket.roomID).emit("receive-poke-info", name, type);
     const playerMove = { name: `${name}`, type: `${type}`, id: `${socket.id}` };
     //socket.id == the client socket id
-    console.log(socket.id);
+    console.log(socket.roomID);
+    const playerMoves = roomsMap.get(socket.roomID) || [];
+
     if (playerMoves.length === 0) {
       playerMoves.push(playerMove);
+      roomsMap.set(socket.roomID, playerMoves);
     }
     //to make sure last move isnt from the previous user
     //cant use a hashset because if user used a different pokemon it would count as a
     //different move
     if (playerMoves.length !== 0 && playerMoves[0].id !== playerMove.id) {
       playerMoves.push(playerMove);
+      roomsMap.set(socket.roomID, playerMoves);
     }
 
     if (playerMoves.length === 2) {
@@ -32,10 +37,9 @@ io.on("connection", socket => {
       //store here to prevent undefined from timing issues
       const moveType0 = playerMoves[0].type;
       const moveType1 = playerMoves[1].type;
-      console.log(result);
       //last move won...corresponds to index
       if (result === 1) {
-        socket.emit("game-end", "You WON!!!!", moveType0);
+        io.to(socket.id).emit("game-end", "You WON!!!!", moveType0);
         socket.broadcast
           .to(playerMoves[0].id)
           .emit("game-end", "You lost", moveType1);
@@ -45,20 +49,32 @@ io.on("connection", socket => {
         socket.broadcast
           .to(playerMoves[0].id)
           .emit("game-end", "You Won", moveType1);
-        socket.emit("game-end", "You lost", moveType0);
+        io.to(socket.id).emit("game-end", "You lost", moveType0);
       }
       if (result === 2) {
-        io.emit("game-end", "You tied!!!!", moveType0);
+        io.to(socket.roomID).emit("game-end", "You tied!!!!", moveType0);
       }
 
-      //so on refresh we dont keep the playerMove
-      socket.on("disconnect", () => {
-        while (playerMoves.length !== 0) playerMoves.pop();
-      });
-
+      console.log(roomsMap);
       //reset the game
-      while (playerMoves.length !== 0) playerMoves.pop();
+      // while (playerMoves.length !== 0) playerMoves.pop();
+      roomsMap.delete(socket.roomID);
     }
+  });
+  //so on refresh we dont keep the playerMove
+  socket.on("disconnect", () => {
+    console.log(roomsMap.get(socket.roomID));
+    io.in(socket.roomID).disconnectSockets();
+    socket.emit("player-left");
+    roomsMap.delete(socket.roomID);
+    console.log(roomsMap);
+  });
+  socket.on("join-room", room => {
+    socket.join(room);
+    socket.roomID = room;
+    console.log(socket.roomID);
+    socket.color = "red";
+    console.log(socket.color);
   });
 });
 

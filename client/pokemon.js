@@ -4,10 +4,8 @@ export default class Pokemon {
     this.type = type;
     this.look = look;
   }
-  printAttack() {
-    console.log(`I am an ${this.type} type so I won`);
-  }
+
   printHi() {
-    console.log(`I am ${this.name}, lets battle!`);
+    return `I am ${this.name}, lets battle!`;
   }
 }
