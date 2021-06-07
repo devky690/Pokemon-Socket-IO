@@ -123,13 +123,21 @@ const buttonShuffle = document.querySelector("#shuffle-btn");
 const buttonClearChat = document.querySelector("#clear-btn");
 const roomSelect = document.querySelector("#room-select");
 const chatBoard = document.querySelector("#chat-board");
+const roomsJoined = [];
+let room;
 
 buttonSubmit.addEventListener("click", () => {
   //roomSelect.value is the option selected
-  console.log(roomSelect.value);
-  //socket.emit("join-room")
+  socket.emit("join-room", roomSelect.value);
+  room = roomSelect.value;
+  roomsJoined.push(room);
+  //so if user changes rooms they can play again in the new room
+  roomsJoined.forEach(r => {
+    if (r !== room) {
+      hasPrinted = false;
+    }
+  });
 });
-
 buttonShuffle.addEventListener("click", async () => {
   while (playingCardData.length !== 0) playingCardData.pop();
   await getPokemon();
@@ -141,8 +149,8 @@ buttonClearChat.addEventListener("click", () => {
   chatBoard.innerHTML = "";
 });
 
-//you will be seen as other/enemy player
-let otherPlayerMove = {};
+// //you will be seen as other/enemy player
+// let otherPlayerMove = {};
 //this client's move
 let playerMove = {};
 //decides if user can play or not
@@ -155,7 +163,9 @@ document.addEventListener("click", e => {
   const div = e.target.previousElementSibling.previousElementSibling;
   pokeObjects.forEach(poke => {
     if (poke.name === div.dataset.pokeName && !hasPrinted) {
-      poke.printHi();
+      const chatMsg = document.createElement("div");
+      chatMsg.classList.add("chat-msg");
+      chatMsg.innerText = poke.printHi();
       playerMove.type = poke.type;
       playerMove.name = poke.name;
       socket.emit(
@@ -167,18 +177,24 @@ document.addEventListener("click", e => {
       );
       //break in case multiple pokemon objects with same name
       hasPrinted = true;
+      chatBoard.appendChild(chatMsg);
     }
   });
   console.log(div.dataset.pokeName);
 });
 
+socket.on("player-left", () => {
+  hasPrinted = false;
+  while (roomsJoined !== null && roomsJoined.length !== 0) roomsJoined.pop();
+});
+
 //other client will see you as enemy due to broadcast.emit
 socket.on("receive-poke-info", (name, type) => {
-  otherPlayerMove.name = name;
-  otherPlayerMove.type = type;
-  console.log(
-    `Enemy chose ${otherPlayerMove.name} with the ${otherPlayerMove.type} type`
-  );
+  // otherPlayerMove.name = name;
+  // otherPlayerMove.type = type;
+  // console.log(
+  //   `Enemy chose ${otherPlayerMove.name} with the ${otherPlayerMove.type} type`
+  // );
   const chatMsg = document.createElement("div");
   chatMsg.style.color = "black";
   chatMsg.classList.add("chat-msg");
@@ -198,5 +214,3 @@ socket.on("game-end", (message, enemyPokeType) => {
   //so the user can choose their pokemon again and keep playing
   hasPrinted = false;
 });
-
-socket.on();
