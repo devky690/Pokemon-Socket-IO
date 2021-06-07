@@ -40,4 +40,6 @@ Add a chat room for each room
 Add a user guide page with just the rooms form to join a room and the instructions to play the game
 (this wont be a page technically but itll just be conditional rendering)
 
+# Deployment
 
+Need to figure out how to deploy a bundler like snowpack. Options: heroku, firebase hosting
