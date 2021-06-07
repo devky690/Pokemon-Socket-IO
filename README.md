@@ -33,8 +33,11 @@ different move
 
 Not finishing game before moving onto a different room and then refreshing, means that players that join the room that was left, would need to refresh the page so that the playMoves associated with the room id can be deleted. The reason why communication doesnt occur is because the communication cant occur with a disconnected socket. Thus we need to just tell the user to refresh if they arent able to play because that would allow the room to be reset. To resolve this in the future try using cookies with jwt token to store an array of socket ids that a user has in a session then just reset all rooms the user had before disconnecting and expire that cookie 
 
-# Last Features to Add
--Add a chat room for each room 
--Add a user guide page with just the rooms form to join a room.
+# Chat Room
+Add a chat room for each room 
+
+# User Guide
+Add a user guide page with just the rooms form to join a room and the instructions to play the game
+(this wont be a page technically but itll just be conditional rendering)
 
 
