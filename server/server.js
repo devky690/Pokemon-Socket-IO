@@ -10,7 +10,7 @@ const roomsMap = new Map();
 io.on("connection", socket => {
   // remember emit callbacks need to be the last parameter!
   socket.on("send-poke-info", (name, type) => {
-    socket.broadcast.to(socket.id).emit("receive-poke-info", name, type);
+    socket.broadcast.to(socket.roomID).emit("receive-poke-info", name, type);
     const playerMove = { name: `${name}`, type: `${type}`, id: `${socket.id}` };
     //socket.id == the client socket id
     console.log(socket.roomID);
@@ -63,13 +63,11 @@ io.on("connection", socket => {
   });
   //so on refresh we dont keep the playerMove
   socket.on("disconnect", () => {
-    // while (playerMoves.length !== 0) playerMoves.pop();
     console.log(roomsMap.get(socket.roomID));
     io.in(socket.roomID).disconnectSockets();
     socket.emit("player-left");
     roomsMap.delete(socket.roomID);
     console.log(roomsMap);
-    socket.emit();
   });
   socket.on("join-room", room => {
     socket.join(room);

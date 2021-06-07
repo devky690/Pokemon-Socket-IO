@@ -130,13 +130,8 @@ buttonSubmit.addEventListener("click", () => {
   //roomSelect.value is the option selected
   socket.emit("join-room", roomSelect.value);
   room = roomSelect.value;
-  roomsJoined.push(room);
-  //so if user changes rooms they can play again in the new room
-  roomsJoined.forEach(r => {
-    if (r !== room) {
-      hasPrinted = false;
-    }
-  });
+
+  hasPrinted = false;
 });
 buttonShuffle.addEventListener("click", async () => {
   while (playingCardData.length !== 0) playingCardData.pop();
@@ -186,6 +181,7 @@ document.addEventListener("click", e => {
 socket.on("player-left", () => {
   hasPrinted = false;
   while (roomsJoined !== null && roomsJoined.length !== 0) roomsJoined.pop();
+  window.location.reload();
 });
 
 //other client will see you as enemy due to broadcast.emit
