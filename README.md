@@ -42,4 +42,4 @@ Add a user guide page with just the rooms form to join a room and the instructio
 
 # Deployment
 
-Need to figure out how to deploy a bundler like snowpack. Options: heroku, firebase hosting
+Need to figure out how to deploy a bundler like snowpack. Options: heroku
