@@ -30,8 +30,11 @@ cant use a hashset because if user used a different pokemon it would count as a
 different move
 
 # Bug Fixes
+Sometimes if a player starts a game early without another playing being room the game can never end. To fix the user would need to refresh their browser or press join game again. But this doesnt happen all time - sometimes its okay, so not a big bug. And player shouldnt be starting a game early anyhow.
 
-Not finishing game before moving onto a different room and then refreshing, means that players that join the room that was left, would need to refresh the page so that the playMoves associated with the room id can be deleted. The reason why communication doesnt occur is because the communication cant occur with a disconnected socket. Thus we need to just tell the user to refresh if they arent able to play because that would allow the room to be reset. To resolve this in the future try using cookies with jwt token to store an array of socket ids that a user has in a session then just reset all rooms the user had before disconnecting and expire that cookie 
+Also when a player joins a room with other players. If they join a different room, they will be able to see the previous room messages, but they shouldnt even
+be joining another group of players room anyhow. I want to just limit to two players
+
 
 # Chat Room
 Add a chat room for each room 
