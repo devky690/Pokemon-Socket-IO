@@ -30,7 +30,7 @@ cant use a hashset because if user used a different pokemon it would count as a
 different move
 
 # Bug Fixes
-Sometimes if a player starts a game early without another playing being room the game can never end. To fix the user would need to refresh their browser. But this doesnt happen all time - sometimes its okay, so not a big bug. And player shouldnt be starting a game early anyhow.
+Sometimes if a player starts a game early without another playing being room the game can never end. To fix the user would need to refresh their browser or press join game again. But this doesnt happen all time - sometimes its okay, so not a big bug. And player shouldnt be starting a game early anyhow.
 
 Also when a player joins a room with other players. If they join a different room, they will be able to see the previous room messages, but they shouldnt even
 be joining another group of players room anyhow. I want to just limit to two players
