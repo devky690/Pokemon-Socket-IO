@@ -57,20 +57,23 @@ io.on("connection", socket => {
       console.log("end of game");
       console.log(roomsMap);
     }
+    //so on refresh we dont keep the playerMove
+    //or when player leaves the room
+    socket.on("disconnect", () => {
+      console.log(roomsMap.get(socket.roomID));
+      io.in(socket.roomID).disconnectSockets();
+      if (roomsMap.has(socket.roomID)) roomsMap.delete(socket.roomID);
+      console.log(roomsMap);
+    });
   });
-  //so on refresh we dont keep the playerMove
-  socket.on("disconnect", () => {
-    console.log(roomsMap.get(socket.roomID));
-    io.in(socket.roomID).disconnectSockets();
-    if (roomsMap.has(socket.roomID)) roomsMap.delete(socket.roomID);
-    console.log(roomsMap);
-  });
+
   socket.on("join-room", room => {
     socket.join(room);
     socket.roomID = room;
     console.log(socket.roomID);
     console.log(socket.id);
     console.log(roomsMap);
+    socket.emit("player-joined", "player connected");
   });
   socket.on("clean-room", room => {
     if (roomsMap.has(room)) roomsMap.delete(room);

@@ -193,11 +193,17 @@ socket.on("game-end", (message, enemyPokeType) => {
     `${message} Because the enemy played a pokemon with the ${enemyPokeType} type`
   );
   const chatMsg = document.createElement("div");
-  chatMsg.style.color = "black";
   chatMsg.classList.add("chat-msg");
   chatMsg.innerText = `${message} Because the enemy played a pokemon with the ${enemyPokeType} type`;
   chatBoard.appendChild(chatMsg);
   //so the user can choose their pokemon again and keep playing
   // hasPrinted = false;
   socket.emit("clean-room", roomSelect.value);
+});
+
+socket.on("player-joined", message => {
+  const chatMsg = document.createElement("div");
+  chatMsg.classList.add("chat-msg");
+  chatMsg.innerText = message;
+  chatBoard.appendChild(chatMsg);
 });
