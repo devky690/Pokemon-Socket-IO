@@ -73,7 +73,7 @@ io.on("connection", socket => {
     console.log(socket.roomID);
     console.log(socket.id);
     console.log(roomsMap);
-    socket.emit("player-joined", "player connected");
+    socket.broadcast.to(socket.roomID).emit("player-joined", "enemy connected");
   });
   socket.on("clean-room", room => {
     if (roomsMap.has(room)) roomsMap.delete(room);
