@@ -54,27 +54,26 @@ io.on("connection", socket => {
       if (result === 2) {
         io.to(socket.roomID).emit("game-end", "You tied!!!!", moveType0);
       }
-
+      console.log("end of game");
       console.log(roomsMap);
-      //reset the game
-      // while (playerMoves.length !== 0) playerMoves.pop();
-      roomsMap.delete(socket.roomID);
     }
   });
   //so on refresh we dont keep the playerMove
   socket.on("disconnect", () => {
     console.log(roomsMap.get(socket.roomID));
     io.in(socket.roomID).disconnectSockets();
-    socket.emit("player-left");
-    roomsMap.delete(socket.roomID);
+    if (roomsMap.has(socket.roomID)) roomsMap.delete(socket.roomID);
     console.log(roomsMap);
   });
   socket.on("join-room", room => {
     socket.join(room);
     socket.roomID = room;
     console.log(socket.roomID);
-    socket.color = "red";
-    console.log(socket.color);
+    console.log(socket.id);
+    console.log(roomsMap);
+  });
+  socket.on("clean-room", room => {
+    if (roomsMap.has(room)) roomsMap.delete(room);
   });
 });
 

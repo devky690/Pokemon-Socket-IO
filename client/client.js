@@ -36,8 +36,12 @@ const buttonOne = document.createElement("button");
 const buttonTwo = document.createElement("button");
 
 async function getPokemon() {
-  const pokeOneIndex = Math.floor(Math.random() * POKE.length);
-  const pokeTwoIndex = Math.floor(Math.random() * POKE.length);
+  let pokeOneIndex = Math.floor(Math.random() * POKE.length);
+  let pokeTwoIndex = Math.floor(Math.random() * POKE.length);
+  while (pokeOneIndex === pokeTwoIndex) {
+    pokeOneIndex = Math.floor(Math.random() * POKE.length);
+    pokeTwoIndex = Math.floor(Math.random() * POKE.length);
+  }
   const pokeOne = POKE[pokeOneIndex];
   const pokeTwo = POKE[pokeTwoIndex];
   const responseOne = await fetch(
@@ -117,22 +121,15 @@ async function createGame() {
 
 createGame();
 
-//Add in room joins later
 const buttonSubmit = document.querySelector("#submit-btn");
 const buttonShuffle = document.querySelector("#shuffle-btn");
 const buttonClearChat = document.querySelector("#clear-btn");
 const roomSelect = document.querySelector("#room-select");
 const chatBoard = document.querySelector("#chat-board");
-const roomsJoined = [];
 let room;
+//decides if user can play or not
+// let hasPrinted = false;
 
-buttonSubmit.addEventListener("click", () => {
-  //roomSelect.value is the option selected
-  socket.emit("join-room", roomSelect.value);
-  room = roomSelect.value;
-
-  hasPrinted = false;
-});
 buttonShuffle.addEventListener("click", async () => {
   while (playingCardData.length !== 0) playingCardData.pop();
   await getPokemon();
@@ -144,12 +141,16 @@ buttonClearChat.addEventListener("click", () => {
   chatBoard.innerHTML = "";
 });
 
-// //you will be seen as other/enemy player
-// let otherPlayerMove = {};
+buttonSubmit.addEventListener("click", () => {
+  //roomSelect.value is the option selected
+  socket.emit("join-room", roomSelect.value);
+  room = roomSelect.value;
+  socket.emit("clean-room", roomSelect.value);
+  //means that the user can pick again
+});
+
 //this client's move
 let playerMove = {};
-//decides if user can play or not
-let hasPrinted = false;
 
 //to scale make use of event delegation and utilize e.target and
 //the data attributes to affect click output
@@ -157,7 +158,7 @@ document.addEventListener("click", e => {
   if (!e.target.matches(".poke-btn")) return;
   const div = e.target.previousElementSibling.previousElementSibling;
   pokeObjects.forEach(poke => {
-    if (poke.name === div.dataset.pokeName && !hasPrinted) {
+    if (poke.name === div.dataset.pokeName) {
       const chatMsg = document.createElement("div");
       chatMsg.classList.add("chat-msg");
       chatMsg.innerText = poke.printHi();
@@ -170,27 +171,15 @@ document.addEventListener("click", e => {
         //NEED TO CALL FUNCTION in CLIENT to use emit callback
         //it wont be used right away if your going to use them
       );
-      //break in case multiple pokemon objects with same name
-      hasPrinted = true;
+
       chatBoard.appendChild(chatMsg);
     }
   });
   console.log(div.dataset.pokeName);
 });
 
-socket.on("player-left", () => {
-  hasPrinted = false;
-  while (roomsJoined !== null && roomsJoined.length !== 0) roomsJoined.pop();
-  window.location.reload();
-});
-
 //other client will see you as enemy due to broadcast.emit
-socket.on("receive-poke-info", (name, type) => {
-  // otherPlayerMove.name = name;
-  // otherPlayerMove.type = type;
-  // console.log(
-  //   `Enemy chose ${otherPlayerMove.name} with the ${otherPlayerMove.type} type`
-  // );
+socket.on("receive-poke-info", () => {
   const chatMsg = document.createElement("div");
   chatMsg.style.color = "black";
   chatMsg.classList.add("chat-msg");
@@ -198,6 +187,7 @@ socket.on("receive-poke-info", (name, type) => {
   chatBoard.appendChild(chatMsg);
 });
 
+//get rid of this and turn into an emit callback! so message can go to correct client!
 socket.on("game-end", (message, enemyPokeType) => {
   console.log(
     `${message} Because the enemy played a pokemon with the ${enemyPokeType} type`
@@ -208,5 +198,6 @@ socket.on("game-end", (message, enemyPokeType) => {
   chatMsg.innerText = `${message} Because the enemy played a pokemon with the ${enemyPokeType} type`;
   chatBoard.appendChild(chatMsg);
   //so the user can choose their pokemon again and keep playing
-  hasPrinted = false;
+  // hasPrinted = false;
+  socket.emit("clean-room", roomSelect.value);
 });
