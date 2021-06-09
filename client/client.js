@@ -6,8 +6,6 @@
 after 10 rounds 
 
 */
-
-import { io } from "socket.io-client";
 import Pokemon from "./pokemon.js";
 const POKE = ["pikachu", "charizard", "bulbasaur", "squirtle", "pidgeot"];
 //delete io server when deploying (no localhost:3000)
