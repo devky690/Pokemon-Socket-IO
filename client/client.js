@@ -11,7 +11,7 @@ import { io } from "socket.io-client";
 import Pokemon from "./pokemon.js";
 const POKE = ["pikachu", "charizard", "bulbasaur", "squirtle", "pidgeot"];
 //delete io server when deploying (no localhost:3000)
-const socket = io.connect();
+const socket = io("https://pokemon-socket-io.herokuapp.com");
 
 let playingCardData = [];
 //loop through pokeObjects while checking the data set of the element before
