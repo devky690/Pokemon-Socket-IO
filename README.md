@@ -2,10 +2,7 @@
 
 # Setup client
 
-npm i snowpack socket.io-client
-
-utilizing snowpack bundler - bundles files together and has them run on a single
-port - localhost:8080
+just use cdn socket.io from cdn library website
 
 # Setup Server
 
@@ -45,4 +42,5 @@ Add a user guide page with just the rooms form to join a room and the instructio
 
 # Deployment
 
-Need to figure out how to deploy a bundler like snowpack. Options: heroku
+https://pokemon-socket-io.herokuapp.com/ (currently in progress)
+
