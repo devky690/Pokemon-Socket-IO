@@ -146,7 +146,6 @@ buttonSubmit.addEventListener("click", () => {
   socket.emit("join-room", roomSelect.value);
   room = roomSelect.value;
   socket.emit("clean-room", roomSelect.value);
-  //means that the user can pick again
 });
 
 //this client's move

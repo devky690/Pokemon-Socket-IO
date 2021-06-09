@@ -1,3 +1,8 @@
+const express = require("express");
+const app = express();
+//for file paths
+const path = require("path");
+
 const io = require("socket.io")(3000, {
   //so client can be allowed access to server
   cors: {
@@ -7,6 +12,18 @@ const io = require("socket.io")(3000, {
 
 const roomsMap = new Map();
 
+//if we have port defined or if we dont then run locally at
+const port = process.env.PORT || 4000;
+
+//serve static assets (client code) if in production
+if (process.env.NODE_ENV === "production") {
+  //set static folder
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 io.on("connection", socket => {
   // remember emit callbacks need to be the last parameter!
   socket.on("send-poke-info", (name, type) => {
@@ -108,6 +125,11 @@ function checkWin(lastPlayer, otherPlayer) {
     return 2;
   }
 }
+
+//to send html page from server to client in case of reload so client
+//can render properly
+
+app.listen(port, () => console.log(`Server started at port: ${port}`));
 
 //To create new Rooms
 // const map = new Map();
