@@ -5,7 +5,15 @@ const PORT = process.env.PORT || 4000;
 app.use(express.static("client"));
 const http = require("http").Server(app);
 
-const io = require("socket.io")(http);
+const io = require("socket.io")(http, {
+  //so client can be allowed access to server
+  cors: {
+    origin: [
+      "http://localhost:8080",
+      "https://pokemon-socket-io.herokuapp.com",
+    ],
+  },
+});
 
 app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
 
