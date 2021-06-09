@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 app.use(express.static("client"));
 const http = require("http").Server(app);
 
@@ -9,8 +9,9 @@ const io = require("socket.io")(http, {
   //so client can be allowed access to server
   cors: {
     origin: [
-      "http://localhost:8080",
+      "http://localhost:3000",
       "https://pokemon-socket-io.herokuapp.com",
+      "http://127.0.0.1:5500",
     ],
   },
 });

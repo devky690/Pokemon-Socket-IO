@@ -3,13 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "client.js",
-  "scripts": {
-    "start": "snowpack dev"
-  },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "snowpack": "^3.5.5"
-  }
+  "license": "ISC"
 }

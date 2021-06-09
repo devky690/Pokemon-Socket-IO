@@ -9,7 +9,7 @@ after 10 rounds
 import Pokemon from "./pokemon.js";
 const POKE = ["pikachu", "charizard", "bulbasaur", "squirtle", "pidgeot"];
 //delete io server when deploying (no localhost:3000)
-const socket = io("https://pokemon-socket-io.herokuapp.com");
+const socket = io("http://localhost:3000");
 
 let playingCardData = [];
 //loop through pokeObjects while checking the data set of the element before
