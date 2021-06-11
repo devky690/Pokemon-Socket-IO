@@ -101,11 +101,14 @@ function checkWin(lastPlayer, otherPlayer) {
   if (
     (lastPlayer.type === "electric" && otherPlayer.type === "water") ||
     (lastPlayer.type === "water" && otherPlayer.type === "fire") ||
+    (lastPlayer.type === "water" && otherPlayer.type === "rock") ||
     (lastPlayer.type === "grass" && otherPlayer.type === "electric") ||
     (lastPlayer.type === "grass" && otherPlayer.type === "water") ||
+    (lastPlayer.type === "grass" && otherPlayer.type === "rock") ||
     (lastPlayer.type !== "normal" && otherPlayer.type === "normal") ||
     (lastPlayer.type === "fire" && otherPlayer.type === "normal") ||
-    (lastPlayer.type === "grass" && otherPlayer.type === "normal")
+    (lastPlayer.type === "rock" && otherPlayer.type === "electric") ||
+    (lastPlayer.type === "rock" && otherPlayer.type === "fire") ||
   ) {
     return 1;
   }
@@ -121,7 +124,11 @@ function checkWin(lastPlayer, otherPlayer) {
     return 0;
   }
 
-  if (lastPlayer.type === otherPlayer.type) {
+  if (
+    (lastPlayer.type === otherPlayer.type) || 
+    (lastPlayer.type === 'fire' && otherPlayer.type === "electric")|| 
+    (otherPlayer.type === "electric" && lastPlayer.type === "fire" )
+    ){
     return 2;
   }
 }
