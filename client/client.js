@@ -23,7 +23,7 @@
  * they will be able to see the previous room messages, but they shouldnt even
  * be joining another group of players room anyhow. I want to just limit to two players
  *
- * 3) chatmsgs appended at random (happens very infrequently
+ * 3) (FIXED) chatmsgs appended at random (happens very infrequently
  * the cause turned out to be from not clearing pokemon objects when i cleared playingCardData
  */
 import Pokemon from "./pokemon.js";
