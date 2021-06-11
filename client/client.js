@@ -26,7 +26,19 @@
  * 3) chatmsgs appended at random (happens very infrequently)...not sure of the cause
  */
 import Pokemon from "./pokemon.js";
-const POKE = ["pikachu", "charizard", "bulbasaur", "squirtle", "pidgeot"];
+const POKE = [
+  "pikachu",
+  "charizard",
+  "bulbasaur",
+  "squirtle",
+  "pidgeot",
+  "onix",
+  "eevee",
+  "snorlax",
+  "lapras",
+  "gyarados",
+  "tyranitar",
+];
 //delete io server when deploying (no localhost:3000)
 const socket = io("https://pokemon-socket-io.herokuapp.com");
 
@@ -150,6 +162,7 @@ let room;
 
 buttonShuffle.addEventListener("click", async () => {
   while (playingCardData.length !== 0) playingCardData.pop();
+  while (pokeObjects.length !== 0) pokeObjects.pop();
   await getPokemon();
   await createGame();
 });
@@ -175,7 +188,7 @@ document.addEventListener("click", e => {
   if (!e.target.matches(".poke-btn")) return;
   const div = e.target.previousElementSibling.previousElementSibling;
   pokeObjects.forEach(poke => {
-    if (poke.name === div.dataset.pokeName) {
+    if (poke != null && poke.name === div.dataset.pokeName) {
       const chatMsg = document.createElement("div");
       chatMsg.classList.add("chat-msg");
       chatMsg.innerText = poke.printHi();
