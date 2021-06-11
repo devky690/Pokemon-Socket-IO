@@ -105,30 +105,33 @@ function checkWin(lastPlayer, otherPlayer) {
     (lastPlayer.type === "grass" && otherPlayer.type === "electric") ||
     (lastPlayer.type === "grass" && otherPlayer.type === "water") ||
     (lastPlayer.type === "grass" && otherPlayer.type === "rock") ||
-    (lastPlayer.type !== "normal" && otherPlayer.type === "normal") ||
-    (lastPlayer.type === "fire" && otherPlayer.type === "normal") ||
+    (lastPlayer.type === "fire" && otherPlayer.type === "grass") ||
     (lastPlayer.type === "rock" && otherPlayer.type === "electric") ||
     (lastPlayer.type === "rock" && otherPlayer.type === "fire") ||
+    (lastPlayer.type !== "normal" && otherPlayer.type === "normal")
   ) {
     return 1;
   }
   if (
     (otherPlayer.type === "electric" && lastPlayer.type === "water") ||
     (otherPlayer.type === "water" && lastPlayer.type === "fire") ||
+    (otherPlayer.type === "water" && lastPlayer.type === "rock") ||
     (otherPlayer.type === "grass" && lastPlayer.type === "electric") ||
     (otherPlayer.type === "grass" && lastPlayer.type === "water") ||
-    (otherPlayer.type !== "normal" && lastPlayer.type === "normal") ||
-    (otherPlayer.type === "fire" && lastPlayer.type === "normal") ||
-    (otherPlayer.type === "grass" && lastPlayer.type === "normal")
+    (otherPlayer.type === "grass" && lastPlayer.type === "rock") ||
+    (otherPlayer.type === "fire" && lastPlayer.type === "grass") ||
+    (otherPlayer.type === "rock" && lastPlayer.type === "electric") ||
+    (otherPlayer.type === "rock" && lastPlayer.type === "fire") ||
+    (otherPlayer.type !== "normal" && lastPlayer.type === "normal")
   ) {
     return 0;
   }
 
   if (
-    (lastPlayer.type === otherPlayer.type) || 
-    (lastPlayer.type === 'fire' && otherPlayer.type === "electric")|| 
-    (otherPlayer.type === "electric" && lastPlayer.type === "fire" )
-    ){
+    lastPlayer.type === otherPlayer.type ||
+    (lastPlayer.type === "fire" && otherPlayer.type === "electric") ||
+    (otherPlayer.type === "electric" && lastPlayer.type === "fire")
+  ) {
     return 2;
   }
 }
