@@ -23,7 +23,8 @@
  * they will be able to see the previous room messages, but they shouldnt even
  * be joining another group of players room anyhow. I want to just limit to two players
  *
- * 3) chatmsgs appended at random (happens very infrequently)...not sure of the cause
+ * 3) chatmsgs appended at random (happens very infrequently
+ * the cause turned out to be from not clearing pokemon objects when i cleared playingCardData
  */
 import Pokemon from "./pokemon.js";
 const POKE = [
@@ -188,7 +189,7 @@ document.addEventListener("click", e => {
   if (!e.target.matches(".poke-btn")) return;
   const div = e.target.previousElementSibling.previousElementSibling;
   pokeObjects.forEach(poke => {
-    if (poke != null && poke.name === div.dataset.pokeName) {
+    if (poke.name === div.dataset.pokeName) {
       const chatMsg = document.createElement("div");
       chatMsg.classList.add("chat-msg");
       chatMsg.innerText = poke.printHi();
