@@ -27,7 +27,7 @@ const roomsMap = new Map();
 io.on("connection", socket => {
   // remember emit callbacks need to be the last parameter!
   socket.on("send-poke-info", (name, type) => {
-    socket.broadcast.to(socket.roomID).emit("receive-poke-info", name, type);
+    socket.to(socket.roomID).emit("receive-poke-info", name, type);
     const playerMove = { name: `${name}`, type: `${type}`, id: `${socket.id}` };
     //socket.id == the client socket id
     console.log(socket.roomID);
@@ -57,25 +57,20 @@ io.on("connection", socket => {
       //last move won...corresponds to index
       if (result === 1) {
         io.to(socket.id).emit("game-end", "You WON!!!!", moveType0);
-        socket.broadcast
-          .to(playerMoves[0].id)
-          .emit("game-end", "You lost", moveType1);
+        io.to(playerMoves[0].id).emit("game-end", "You lost", moveType1);
       }
       // first move won...corresponds to index
       if (result === 0) {
-        socket.broadcast
-          .to(playerMoves[0].id)
-          .emit("game-end", "You Won", moveType1);
+        io.to(playerMoves[0].id).emit("game-end", "You Won", moveType1);
         io.to(socket.id).emit("game-end", "You lost", moveType0);
       }
       if (result === 2) {
-        io.to(socket.roomID).emit("game-end", "You tied!!!!", moveType0);
+        io.in(socket.roomID).emit("game-end", "You tied!!!!", moveType0);
       }
       console.log("end of game");
       console.log(roomsMap);
     }
     //so on refresh we dont keep the playerMove
-    //or when player leaves the room
     socket.on("disconnect", () => {
       console.log(roomsMap.get(socket.roomID));
       io.in(socket.roomID).disconnectSockets();
@@ -85,12 +80,16 @@ io.on("connection", socket => {
   });
 
   socket.on("join-room", room => {
+    //not leaving room for some reason, just tell user to refresh
+    if (socket.roomID != undefined) {
+      socket.leave(socket.roomID);
+    }
     socket.join(room);
     socket.roomID = room;
     console.log(socket.roomID);
     console.log(socket.id);
     console.log(roomsMap);
-    socket.broadcast.to(socket.roomID).emit("player-joined", "enemy connected");
+    socket.to(socket.roomID).emit("player-joined", "enemy connected");
   });
   socket.on("clean-room", room => {
     if (roomsMap.has(room)) roomsMap.delete(room);

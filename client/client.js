@@ -4,24 +4,25 @@
  * 2)have a global chat,
  * 3)and room chat (the chatBoard...i have currently i can have players send
  *  messages there as well)
- * 4) guide in beginning (game not shown, just rooms to join)
+ * 4)guide in beginning (game not shown, just rooms to join)
  * 5)allow players to create new rooms (default rooms can stay but rooms i want to add...need to utilize
  * dom manipulation)
  * 6)show pokemon facts based on winning and losing pokemon, have "clear stats" button to get rid of these
  * stats
  * 7)read through socket.io docs
  * 8)fix the tedious bugs last
- *
+ * 9)allow users to create rooms, but keep default rooms 1 to 4 still
  *
  * FIXME:
- * 1)Sometimes if a player starts a game early without another playing being room the game can never end.
+ * 1) (FIXED) Sometimes if a player starts a game early without another playing being room the game can never end.
  * To fix the user would need to refresh their browser or press join game again.
  * But this doesnt happen all time - sometimes its okay, so not a big bug.
- * And player shouldnt be starting a game early anyhow.
+ * And player shouldnt be starting a game early anyhow. (I think this was because I forgot to include
+ * the other pokemon battle checks!)
  *
  * 2)Also when a player joins a room with other players. If they join a different room,
- * they will be able to see the previous room messages, but they shouldnt even
- * be joining another group of players room anyhow. I want to just limit to two players
+ * they will be able to see the previous room messages.
+ * (Just tell user to refresh)
  *
  * 3) (FIXED) chatmsgs appended at random (happens very infrequently
  * the cause turned out to be from not clearing pokemon objects when i cleared playingCardData
@@ -160,6 +161,7 @@ const buttonClearChat = document.querySelector("#clear-btn");
 const roomSelect = document.querySelector("#room-select");
 const chatBoard = document.querySelector("#chat-board");
 let room;
+
 //decides if user can play or not
 // let hasPrinted = false;
 
