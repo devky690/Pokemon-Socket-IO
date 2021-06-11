@@ -25,6 +25,8 @@
  *
  * 3) (FIXED) chatmsgs appended at random (happens very infrequently
  * the cause turned out to be from not clearing pokemon objects when i cleared playingCardData
+ *
+ * 4) (FIXED) make sure to add pokemon types if add in new pokemon!
  */
 import Pokemon from "./pokemon.js";
 const POKE = [
