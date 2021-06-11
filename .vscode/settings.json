@@ -1,0 +1,7 @@
+{
+  "window.title": "${dirty}${activeEditorShort}${separator}${rootPath}:${separator}${appName}",
+  "editor.rulers": [
+    120
+  ],
+  "prettier.arrowParens": "avoid"
+}
