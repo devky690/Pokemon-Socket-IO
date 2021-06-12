@@ -181,6 +181,7 @@ buttonSubmit.addEventListener("click", () => {
   if (buttonSubmit.innerText === "Join Room") {
     socket.emit("join-room", roomSelect.value);
     room = roomSelect.value;
+    socket.emit("clean-room", room);
     buttonSubmit.innerText = "Leave Room";
     roomSelect.classList.add("hide");
   } else if (buttonSubmit.innerText === "Leave Room") {
