@@ -185,10 +185,11 @@ buttonSubmit.addEventListener("click", () => {
     buttonSubmit.innerText = "Leave Room";
     roomSelect.classList.add("hide");
   } else if (buttonSubmit.innerText === "Leave Room") {
-    room = "";
-    socket.emit("leave-room", roomSelect.value);
+    socket.emit("leave-room", room);
+    socket.emit("clean-room", room);
     roomSelect.classList.remove("hide");
     buttonSubmit.innerText = "Join Room";
+    room = "";
   }
 });
 
