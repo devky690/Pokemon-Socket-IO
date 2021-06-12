@@ -9,9 +9,7 @@
  * dom manipulation)
  * 6)show pokemon facts based on winning and losing pokemon, have "clear stats" button to get rid of these
  * stats
- * 7)read through socket.io docs
- * 8)fix the tedious bugs last
- * 9)allow users to create rooms, but keep default rooms 1 to 4 still
+ * 7)allow users to create rooms, but keep default rooms 1 to 4 still
  *
  * FIXME:
  * 1) (FIXED) Sometimes if a player starts a game early without another playing being room the game can never end.
