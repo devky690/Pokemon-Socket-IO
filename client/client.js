@@ -250,3 +250,10 @@ socket.on("player-joined", message => {
   chatMsg.innerText = message;
   chatBoard.appendChild(chatMsg);
 });
+
+socket.on("player-left", message => {
+  const chatMsg = document.createElement("div");
+  chatMsg.classList.add("chat-msg");
+  chatMsg.innerText = message;
+  chatBoard.appendChild(chatMsg);
+});
