@@ -22,7 +22,7 @@
  *
  * 2) (FIXED) Also when a player joins a room with other players. If they join a different room,
  * they will be able to see the previous room messages.
- * I need to leave room with a different event...I believe it was a timing issue. Now users can 
+ * I need to leave room with a different event...I believe it was a timing issue. Now users can
  * leave properly! :)
  *
  * 3) (FIXED) chatmsgs appended at random (happens very infrequently
@@ -161,7 +161,6 @@ const buttonShuffle = document.querySelector("#shuffle-btn");
 const buttonClearChat = document.querySelector("#clear-btn");
 const roomSelect = document.querySelector("#room-select");
 const chatBoard = document.querySelector("#chat-board");
-const buttonLeave = document.querySelector("#leave-room-btn");
 let room;
 
 //decides if user can play or not
