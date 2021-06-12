@@ -20,9 +20,10 @@
  * And player shouldnt be starting a game early anyhow. (I think this was because I forgot to include
  * the other pokemon battle checks!)
  *
- * 2)Also when a player joins a room with other players. If they join a different room,
+ * 2) (FIXED) Also when a player joins a room with other players. If they join a different room,
  * they will be able to see the previous room messages.
- * (Just tell user to refresh)
+ * I need to leave room with a different event...I believe it was a timing issue. Now users can 
+ * leave properly! :)
  *
  * 3) (FIXED) chatmsgs appended at random (happens very infrequently
  * the cause turned out to be from not clearing pokemon objects when i cleared playingCardData
@@ -160,6 +161,7 @@ const buttonShuffle = document.querySelector("#shuffle-btn");
 const buttonClearChat = document.querySelector("#clear-btn");
 const roomSelect = document.querySelector("#room-select");
 const chatBoard = document.querySelector("#chat-board");
+const buttonLeave = document.querySelector("#leave-room-btn");
 let room;
 
 //decides if user can play or not
@@ -179,9 +181,19 @@ buttonClearChat.addEventListener("click", () => {
 
 buttonSubmit.addEventListener("click", () => {
   //roomSelect.value is the option selected
-  socket.emit("join-room", roomSelect.value);
-  room = roomSelect.value;
-  socket.emit("clean-room", roomSelect.value);
+
+  if (buttonSubmit.innerText === "Join Room") {
+    socket.emit("join-room", roomSelect.value);
+    room = roomSelect.value;
+    socket.emit("clean-room", roomSelect.value);
+    buttonSubmit.innerText = "Leave Room";
+    roomSelect.classList.add("hide");
+  } else if (buttonSubmit.innerText === "Leave Room") {
+    room = "";
+    socket.emit("leave-room", roomSelect.value);
+    roomSelect.classList.remove("hide");
+    buttonSubmit.innerText = "Join Room";
+  }
 });
 
 //this client's move

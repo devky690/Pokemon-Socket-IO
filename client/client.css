@@ -49,7 +49,8 @@ body {
   font-size: 16px;
 }
 
-#submit-btn {
+#submit-btn,
+#leave-room-btn {
   padding: 0.6em;
   outline: none;
   border: 1px solid rgba(11, 27, 179, 0.603);

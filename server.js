@@ -80,10 +80,6 @@ io.on("connection", socket => {
   });
 
   socket.on("join-room", room => {
-    //not leaving room for some reason, just tell user to refresh
-    if (socket.roomID != undefined) {
-      socket.leave(socket.roomID);
-    }
     socket.join(room);
     socket.roomID = room;
     console.log(socket.roomID);
@@ -91,6 +87,13 @@ io.on("connection", socket => {
     console.log(roomsMap);
     socket.to(socket.roomID).emit("player-joined", "enemy connected");
   });
+
+  socket.on("leave-room", room => {
+    socket.to(room).emit("player-left", "player left the room");
+    //not leaving room for some reason, just tell user to refresh
+    socket.leave(socket.roomID);
+  });
+
   socket.on("clean-room", room => {
     if (roomsMap.has(room)) roomsMap.delete(room);
   });
