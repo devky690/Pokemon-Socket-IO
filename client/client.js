@@ -168,10 +168,15 @@ const chatResp = document.querySelector("#chat-response");
 const playerCenter = document.querySelector("#player-center");
 const rules = document.querySelector("#rules");
 const roomLabel = document.querySelector(".room-label");
+const nameForm = document.querySelector(".name-container");
+const nameInput = document.querySelector("#name-input");
 let room;
 
-//decides if user can play or not
-// let hasPrinted = false;
+nameForm.addEventListener("submit", e => {
+  e.preventDefault();
+  socket.emit("send-name", nameInput.value);
+  nameInput.value = "";
+});
 
 buttonShuffle.addEventListener("click", async () => {
   while (playingCardData.length !== 0) playingCardData.pop();
