@@ -52,8 +52,8 @@ let playingCardData = [];
 //previous sibling of e.target with click event below
 //to determine which pokemon instance method to print
 let pokeObjects = [];
-let pokeOne = new Pokemon();
-let pokeTwo = new Pokemon();
+let pokeOne;
+let pokeTwo;
 
 //to scale i just would select gameboard and on button press get
 //user to click the amount of pokemon...but i would just need to put
@@ -181,6 +181,8 @@ nameForm.addEventListener("submit", e => {
 buttonShuffle.addEventListener("click", async () => {
   while (playingCardData.length !== 0) playingCardData.pop();
   while (pokeObjects.length !== 0) pokeObjects.pop();
+  delete pokeOne;
+  delete pokeTwo;
   await getPokemon();
   await createGame();
 });
