@@ -1,15 +1,13 @@
 /**
  * TODO:
  * 1) Add more pokemon to pokemon array to fetch from api
- * 2)have a global chat,
- * 3)and room chat (the chatBoard...i have currently i can have players send
+ * 2)and room chat (the chatBoard...i have currently i can have players send
  *  messages there as well)...add a "clear messages" button to chat,
- * use the same element for global and room chat (dom manipulation)
- * 4)guide in beginning (game not shown, just rooms to join)...make it so that
+ * 3)guide in beginning (game not shown, just rooms to join)...make it so that
  * players have to type in their name
- * 5)allow players to create new rooms (default rooms can stay but rooms i want to add...need to utilize
+ * 4)allow players to create new rooms (default rooms can stay but rooms i want to add...need to utilize
  * dom manipulation)
- * 6)show pokemon facts based on winning and losing pokemon, have "clear stats" button to get rid of these
+ * 5)show pokemon facts based on winning and losing pokemon, have "clear stats" button to get rid of these
  * stats
  *
  *

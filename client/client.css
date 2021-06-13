@@ -1,4 +1,6 @@
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -63,12 +65,27 @@ body {
 
 #rules {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  border: 1px solid #fff;
+  width: 60vw;
+  height: 60vh;
+  margin: auto;
+  background-color: #fff;
+  color: black;
 }
 
-.rules-title {
-  
+#rules ul li::before {
+  /* \2022 is the css code for a bullet
+  psuedoselectors utilize content property
+  thats the content before the element specified in selector
+  , could do after as well. But I will use poke ball instead
+  */
+  content: url("./img/Poke_Ball.png");
+  /* display inline-block so we can add padding/margin to content (poke ball) and stay on one line */
+  display: inline-block;
+  /* so content(poke ball) can align with text */
+  transform: translateY(20px);
 }
 
 .chat-container {
