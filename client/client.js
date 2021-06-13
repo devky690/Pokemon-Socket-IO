@@ -167,6 +167,7 @@ const playerText = document.querySelector("#player-text");
 const chatResp = document.querySelector("#chat-response");
 const playerCenter = document.querySelector("#player-center");
 const rules = document.querySelector("#rules");
+const roomLabel = document.querySelector(".room-label");
 let room;
 
 //decides if user can play or not
@@ -214,6 +215,7 @@ buttonSubmit.addEventListener("click", () => {
     roomSelect.classList.add("hide");
     playerCenter.classList.remove("hide");
     rules.style.display = "none";
+    roomLabel.textContent = room;
   } else if (buttonSubmit.innerText === "Leave Room") {
     socket.emit("leave-room", room);
     socket.emit("clean-room", room);
@@ -221,6 +223,7 @@ buttonSubmit.addEventListener("click", () => {
     buttonSubmit.innerText = "Join Room";
     playerCenter.classList.add("hide");
     rules.style.display = "flex";
+    roomLabel.textContent = "Rooms";
     // room = "";
   }
 });
