@@ -90,6 +90,21 @@ body {
   position: absolute;
   bottom: 0;
   width: 80%;
+  border: none;
+  outline: none;
+  height: 32px;
+}
+
+#message-submit {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20%;
+  padding: 0.6em;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 400;
 }
 
 .chat-msg {

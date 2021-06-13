@@ -158,6 +158,10 @@ const buttonShuffle = document.querySelector("#shuffle-btn");
 const buttonClearChat = document.querySelector("#clear-btn");
 const roomSelect = document.querySelector("#room-select");
 const chatBoard = document.querySelector("#chat-board");
+const roomMsgForm = document.querySelector("#message-form");
+const playerChat = document.querySelector("#player-chat");
+const playerText = document.querySelector("#player-text");
+const chatResp = document.querySelector("#chat-response");
 let room;
 
 //decides if user can play or not
@@ -189,10 +193,15 @@ buttonSubmit.addEventListener("click", () => {
     socket.emit("clean-room", room);
     roomSelect.classList.remove("hide");
     buttonSubmit.innerText = "Join Room";
-    room = "";
+    // room = "";
   }
 });
 
+roomMsgForm.addEventListener("submit", e => {
+  e.preventDefault();
+  socket.emit("send-room-msg", playerText.value);
+  console.log(playerText.value);
+});
 //this client's move
 let playerMove = {};
 
@@ -225,10 +234,17 @@ document.addEventListener("click", e => {
 //other client will see you as enemy due to broadcast.emit
 socket.on("receive-poke-info", () => {
   const chatMsg = document.createElement("div");
-  chatMsg.style.color = "black";
   chatMsg.classList.add("chat-msg");
   chatMsg.innerText = "Enemy has chosen";
   chatBoard.appendChild(chatMsg);
+});
+
+socket.on("receive-room-msg", message => {
+  const chatMsg = document.createElement("div");
+  chatMsg.classList.add("chat-msg");
+  chatMsg.innerText = message;
+  chatResp.appendChild(chatMsg);
+  console.log(chatResp);
 });
 
 //get rid of this and turn into an emit callback! so message can go to correct client!

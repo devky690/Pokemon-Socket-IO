@@ -25,6 +25,10 @@ http.listen(PORT, function () {
 const roomsMap = new Map();
 
 io.on("connection", socket => {
+  socket.on("send-room-msg", message => {
+    socket.to(socket.roomID).emit("receive-room-msg", message);
+  });
+
   // remember emit callbacks need to be the last parameter!
   socket.on("send-poke-info", (name, type) => {
     socket.to(socket.roomID).emit("receive-poke-info", name, type);
@@ -70,13 +74,13 @@ io.on("connection", socket => {
       console.log("end of game");
       console.log(roomsMap);
     }
-    //so on refresh we dont keep the playerMove
-    socket.on("disconnect", () => {
-      console.log(roomsMap.get(socket.roomID));
-      io.in(socket.roomID).disconnectSockets();
-      if (roomsMap.has(socket.roomID)) roomsMap.delete(socket.roomID);
-      console.log(roomsMap);
-    });
+  });
+  //so on refresh we dont keep the playerMove
+  socket.on("disconnect", () => {
+    console.log(roomsMap.get(socket.roomID));
+    io.in(socket.roomID).disconnectSockets();
+    if (roomsMap.has(socket.roomID)) roomsMap.delete(socket.roomID);
+    console.log(roomsMap);
   });
 
   socket.on("join-room", room => {
