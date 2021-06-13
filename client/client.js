@@ -180,12 +180,27 @@ buttonShuffle.addEventListener("click", async () => {
 });
 
 buttonClearChat.addEventListener("click", () => {
-  //removes all child elements
-  chatBoard.innerHTML = "";
+  const responses = Array.from(chatBoard.children);
+  responses.forEach(resp => {
+    if (resp.tagName !== "H2") {
+      // so extra blue isnt showing still
+      resp.classList.remove("chat-msg");
+      resp.innerHTML = "";
+    }
+  });
 });
 buttonClearMsg.addEventListener("click", () => {
   //removes all child elements
-  chatResp.innerHTML = "";
+  //not using innerHtml = "" on chatResp because dont want first child to
+  //be removed...thats the header!
+  const responses = Array.from(chatResp.children);
+  responses.forEach(resp => {
+    if (resp.tagName !== "H2") {
+      // so extra blue isnt showing still
+      resp.classList.remove("chat-msg");
+      resp.innerHTML = "";
+    }
+  });
 });
 
 buttonSubmit.addEventListener("click", () => {
