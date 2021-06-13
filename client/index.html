@@ -5,18 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-  
+    
     <link rel = "stylesheet" href = "client.css"> </link>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js" integrity="sha512-iZIBSs+gDyTH0ZhUem9eQ1t4DcEn2B9lHxfRMeGQhyNdSUz+rb+5A3ummX6DQTOIs1XK0gOteOg/LPtSo9VJ+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- need type module to use module on script -->
+    <script type="module" defer src="client.js"></script>
   </head>
   <style>
     .hide{
         display: none;
-    }
+      }
   </style>
   <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js" integrity="sha512-iZIBSs+gDyTH0ZhUem9eQ1t4DcEn2B9lHxfRMeGQhyNdSUz+rb+5A3ummX6DQTOIs1XK0gOteOg/LPtSo9VJ+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- need type module to use module on script -->
-    <script type="module" defer src="client.js"></script>
     <img class="logo" src="./img/Poke_Logo.png"/>
       <div class = "room-container">
         
@@ -36,6 +36,9 @@
         </div>
         <div id="player-chat">
           <div id="chat-response">
+    
+
+
           </div>
           <form id = "message-form">
             <input id="player-text" value = "Send message to room....">
@@ -54,6 +57,7 @@
       </div>
 
       </div>
+
   
   </body>
 </html>

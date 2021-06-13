@@ -42,6 +42,8 @@ const POKE = [
   "tyranitar",
 ];
 //delete io server when deploying (no localhost:3000)
+//"https://pokemon-socket-io.herokuapp.com"
+//change to http://localhost:3000 to connect!
 const socket = io("https://pokemon-socket-io.herokuapp.com");
 
 let playingCardData = [];
@@ -159,7 +161,6 @@ const buttonClearChat = document.querySelector("#clear-btn");
 const roomSelect = document.querySelector("#room-select");
 const chatBoard = document.querySelector("#chat-board");
 const roomMsgForm = document.querySelector("#message-form");
-const playerChat = document.querySelector("#player-chat");
 const playerText = document.querySelector("#player-text");
 const chatResp = document.querySelector("#chat-response");
 let room;
@@ -199,8 +200,7 @@ buttonSubmit.addEventListener("click", () => {
 
 roomMsgForm.addEventListener("submit", e => {
   e.preventDefault();
-  socket.emit("send-room-msg", playerText.value);
-  console.log(playerText.value);
+  socket.emit("send-msg", playerText.value);
 });
 //this client's move
 let playerMove = {};
@@ -239,7 +239,7 @@ socket.on("receive-poke-info", () => {
   chatBoard.appendChild(chatMsg);
 });
 
-socket.on("receive-room-msg", message => {
+socket.on("receive-msg", message => {
   const chatMsg = document.createElement("div");
   chatMsg.classList.add("chat-msg");
   chatMsg.innerText = message;

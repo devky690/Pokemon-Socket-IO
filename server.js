@@ -18,15 +18,12 @@ const io = require("socket.io")(http, {
 
 app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
 
-http.listen(PORT, function () {
-  console.log(`listening on ${PORT}`);
-});
-
 const roomsMap = new Map();
 
 io.on("connection", socket => {
-  socket.on("send-room-msg", message => {
-    socket.to(socket.roomID).emit("receive-room-msg", message);
+  socket.on("send-msg", message => {
+    console.log(message);
+    io.to(socket.roomID).emit("receive-msg", message);
   });
 
   // remember emit callbacks need to be the last parameter!
@@ -141,6 +138,10 @@ function checkWin(lastPlayer, otherPlayer) {
     return 2;
   }
 }
+
+http.listen(PORT, function () {
+  console.log(`listening on ${PORT}`);
+});
 
 //To create new Rooms
 // const map = new Map();

@@ -82,13 +82,14 @@ body {
 }
 
 #player-chat {
-  position: relative;
   margin-left: 20px;
 }
 
+#message-form {
+  display: flex;
+}
+
 #player-text {
-  position: absolute;
-  bottom: 0;
   width: 80%;
   border: none;
   outline: none;
@@ -96,9 +97,6 @@ body {
 }
 
 #message-submit {
-  position: absolute;
-  bottom: 0;
-  right: 0;
   width: 20%;
   padding: 0.6em;
   outline: none;
