@@ -21,15 +21,30 @@ app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
 const roomsMap = new Map();
 
 io.on("connection", socket => {
+  socket.on("send-name", name => {
+    socket.userName = name;
+    if (socket.userName === "") {
+      socket.userName = "Anonymous";
+    }
+    console.log(socket.userName);
+  });
   socket.on("send-msg", message => {
     console.log(message);
-    io.to(socket.roomID).emit("receive-msg", message);
+    io.to(socket.id).emit("receive-msg", message, "You: ");
+    socket
+      .to(socket.roomID)
+      .emit("receive-msg", message, `${socket.userName}: `);
   });
 
   // remember emit callbacks need to be the last parameter!
   socket.on("send-poke-info", (name, type) => {
     socket.to(socket.roomID).emit("receive-poke-info", name, type);
-    const playerMove = { name: `${name}`, type: `${type}`, id: `${socket.id}` };
+    const playerMove = {
+      name: `${name}`,
+      type: `${type}`,
+      id: `${socket.id}`,
+      userName: `${socket.userName}`,
+    };
     //socket.id == the client socket id
     console.log(socket.roomID);
     const playerMoves = roomsMap.get(socket.roomID) || [];
@@ -57,13 +72,29 @@ io.on("connection", socket => {
       const moveType1 = playerMoves[1].type;
       //last move won...corresponds to index
       if (result === 1) {
-        io.to(socket.id).emit("game-end", "You WON!!!!", moveType0);
-        io.to(playerMoves[0].id).emit("game-end", "You lost", moveType1);
+        io.to(socket.id).emit(
+          "game-end",
+          `You WON!!!! ${socket.userName}`,
+          moveType0
+        );
+        io.to(playerMoves[0].id).emit(
+          "game-end",
+          `You lost ${playerMoves[0].userName}`,
+          moveType1
+        );
       }
       // first move won...corresponds to index
       if (result === 0) {
-        io.to(playerMoves[0].id).emit("game-end", "You Won", moveType1);
-        io.to(socket.id).emit("game-end", "You lost", moveType0);
+        io.to(playerMoves[0].id).emit(
+          "game-end",
+          `You Won ${playerMoves[0].userName}`,
+          moveType1
+        );
+        io.to(socket.id).emit(
+          "game-end",
+          `You lost ${socket.userName}`,
+          moveType0
+        );
       }
       if (result === 2) {
         io.in(socket.roomID).emit("game-end", "You tied!!!!", moveType0);

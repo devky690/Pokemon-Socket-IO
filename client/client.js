@@ -45,7 +45,7 @@ const POKE = [
 //delete io server when deploying (no localhost:3000)
 //"https://pokemon-socket-io.herokuapp.com"
 //change to "http://localhost:3000" to connect!
-const socket = io("https://pokemon-socket-io.herokuapp.com");
+const socket = io("http://localhost:3000");
 
 let playingCardData = [];
 //loop through pokeObjects while checking the data set of the element before
@@ -274,10 +274,10 @@ socket.on("receive-poke-info", () => {
   chatBoard.appendChild(chatMsg);
 });
 
-socket.on("receive-msg", message => {
+socket.on("receive-msg", (message, user) => {
   const chatMsg = document.createElement("div");
   chatMsg.classList.add("chat-msg");
-  chatMsg.innerText = message;
+  chatMsg.innerText = user + message;
   chatResp.appendChild(chatMsg);
   console.log(chatResp);
 });
