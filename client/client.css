@@ -73,6 +73,12 @@ body {
   margin: auto;
   background-color: #fff;
   color: black;
+  margin-bottom: 80px;
+}
+
+#rules ul {
+  font-weight: bold;
+  font-size: 18px;
 }
 
 #rules ul li::before {
@@ -208,6 +214,13 @@ li {
 
   #player-chat {
     margin: auto;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #rules {
+    /* not extended all the way because room container above */
+    height: 100vh;
   }
 }
 
