@@ -181,8 +181,8 @@ nameForm.addEventListener("submit", e => {
 buttonShuffle.addEventListener("click", async () => {
   while (playingCardData.length !== 0) playingCardData.pop();
   while (pokeObjects.length !== 0) pokeObjects.pop();
-  delete pokeOne;
-  delete pokeTwo;
+  delete pokeOne.name;
+  delete pokeTwo.name;
   await getPokemon();
   await createGame();
 });
