@@ -61,7 +61,13 @@ body {
   color: teal;
 }
 
-#chat-board {
+.chat-container {
+  display: flex;
+  margin: 30px;
+}
+
+#chat-board,
+#player-chat {
   display: flex;
   justify-content: center;
   align-items: stretch;
@@ -73,6 +79,17 @@ body {
   background-color: #ffcb05;
   border: 2px solid black;
   overflow-y: scroll;
+}
+
+#player-chat {
+  position: relative;
+  margin-left: 20px;
+}
+
+#player-text {
+  position: absolute;
+  bottom: 0;
+  width: 80%;
 }
 
 .chat-msg {
@@ -133,6 +150,14 @@ li {
   }
   .resize {
     width: 30vw;
+  }
+
+  .chat-container {
+    flex-wrap: wrap;
+  }
+
+  #player-chat {
+    margin: auto;
   }
 }
 
