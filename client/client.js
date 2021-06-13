@@ -3,12 +3,15 @@
  * 1) Add more pokemon to pokemon array to fetch from api
  * 2)have a global chat,
  * 3)and room chat (the chatBoard...i have currently i can have players send
- *  messages there as well)
- * 4)guide in beginning (game not shown, just rooms to join)
+ *  messages there as well)...add a "clear messages" button to chat,
+ * use the same element for global and room chat (dom manipulation)
+ * 4)guide in beginning (game not shown, just rooms to join)...make it so that
+ * players have to type in their name
  * 5)allow players to create new rooms (default rooms can stay but rooms i want to add...need to utilize
  * dom manipulation)
  * 6)show pokemon facts based on winning and losing pokemon, have "clear stats" button to get rid of these
  * stats
+ *
  *
  * FIXME:
  * 1) (FIXED) Sometimes if a player starts a game early without another playing being room the game can never end.
@@ -43,8 +46,8 @@ const POKE = [
 ];
 //delete io server when deploying (no localhost:3000)
 //"https://pokemon-socket-io.herokuapp.com"
-//change to http://localhost:3000 to connect!
-const socket = io("https://pokemon-socket-io.herokuapp.com");
+//change to "http://localhost:3000" to connect!
+const socket = io("http://localhost:3000");
 
 let playingCardData = [];
 //loop through pokeObjects while checking the data set of the element before
@@ -158,6 +161,7 @@ createGame();
 const buttonSubmit = document.querySelector("#submit-btn");
 const buttonShuffle = document.querySelector("#shuffle-btn");
 const buttonClearChat = document.querySelector("#clear-btn");
+const buttonClearMsg = document.querySelector("#clear-msg-btn");
 const roomSelect = document.querySelector("#room-select");
 const chatBoard = document.querySelector("#chat-board");
 const roomMsgForm = document.querySelector("#message-form");
@@ -178,6 +182,10 @@ buttonShuffle.addEventListener("click", async () => {
 buttonClearChat.addEventListener("click", () => {
   //removes all child elements
   chatBoard.innerHTML = "";
+});
+buttonClearMsg.addEventListener("click", () => {
+  //removes all child elements
+  chatResp.innerHTML = "";
 });
 
 buttonSubmit.addEventListener("click", () => {

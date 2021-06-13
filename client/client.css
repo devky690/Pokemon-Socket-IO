@@ -87,6 +87,10 @@ body {
 
 #message-form {
   display: flex;
+  /* margin treated differently in flex box since margins dont collapse
+  meaning when we say margin-top: auto...element will get sent straight to
+  the bottom of its container */
+  margin-top: auto;
 }
 
 #player-text {
@@ -133,7 +137,8 @@ li {
 
 .poke-btn,
 #shuffle-btn,
-#clear-btn {
+#clear-btn,
+#clear-msg-btn {
   border: none;
   cursor: pointer;
   padding: 0.5em;
@@ -146,10 +151,15 @@ li {
   background-color: #fff;
 }
 
-#clear-btn {
+#clear-btn,
+#clear-msg-btn {
   font-size: 16px;
   display: flex;
   margin: 10px auto;
+}
+
+.clear-container {
+  display: flex;
 }
 
 .game {
