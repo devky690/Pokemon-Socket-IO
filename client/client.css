@@ -51,7 +51,24 @@ body {
   font-size: 16px;
 }
 
-#submit-btn {
+.name-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+#name-label {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+#name-input {
+  padding: 5px 0;
+}
+
+#submit-btn,
+#name-submit-btn {
   padding: 0.6em;
   outline: none;
   border: 1px solid rgba(11, 27, 179, 0.603);
