@@ -97,7 +97,7 @@ io.on("connection", socket => {
         );
       }
       if (result === 2) {
-        io.in(socket.roomID).emit("game-end", "You tied!!!!", moveType0);
+        io.in(socket.roomID).emit("game-end", "You tied!!!!", "equally strong");
       }
       console.log("end of game");
       console.log(roomsMap);
