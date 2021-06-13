@@ -106,7 +106,7 @@ io.on("connection", socket => {
   //so on refresh we dont keep the playerMove
   socket.on("disconnect", () => {
     console.log(roomsMap.get(socket.roomID));
-    io.in(socket.roomID).disconnectSockets();
+    // io.in(socket.roomID).disconnectSockets(); dont need to disconnect all sockets in the room
     if (roomsMap.has(socket.roomID)) roomsMap.delete(socket.roomID);
     console.log(roomsMap);
   });
