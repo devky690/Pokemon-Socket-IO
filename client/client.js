@@ -1,13 +1,13 @@
 /**
  * TODO:
- * 1) Add more pokemon to pokemon array to fetch from api
- * 2)and room chat (the chatBoard...i have currently i can have players send
+ * 1) (Done) mAdd more pokemon to pokemon array to fetch from api (Done)
+ * 2)(Done) and room chat (the chatBoard...i have currently i can have players send
  *  messages there as well)...add a "clear messages" button to chat,
- * 3)guide in beginning (game not shown, just rooms to join)...make it so that
+ * 3)(Done) guide in beginning (game not shown, just rooms to join)...make it so that
  * players have to type in their name
- * 4)allow players to create new rooms (default rooms can stay but rooms i want to add...need to utilize
+ * 4)(Need to Do) allow players to create new rooms (default rooms can stay but rooms i want to add...need to utilize
  * dom manipulation)
- * 5)show pokemon facts based on winning and losing pokemon, have "clear stats" button to get rid of these
+ * 5)(Need to Do) show pokemon facts based on winning and losing pokemon, have "clear stats" button to get rid of these
  * stats
  *
  *
@@ -45,7 +45,7 @@ const POKE = [
 //delete io server when deploying (no localhost:3000)
 //"https://pokemon-socket-io.herokuapp.com"
 //change to "http://localhost:3000" to connect!
-const socket = io("http://localhost:3000");
+const socket = io("https://pokemon-socket-io.herokuapp.com");
 
 let playingCardData = [];
 //loop through pokeObjects while checking the data set of the element before
@@ -220,6 +220,7 @@ buttonSubmit.addEventListener("click", () => {
     roomSelect.classList.add("hide");
     playerCenter.classList.remove("hide");
     rules.style.display = "none";
+    nameForm.style.display = "none";
     roomLabel.textContent = room;
   } else if (buttonSubmit.innerText === "Leave Room") {
     socket.emit("leave-room", room);
@@ -228,6 +229,7 @@ buttonSubmit.addEventListener("click", () => {
     buttonSubmit.innerText = "Join Room";
     playerCenter.classList.add("hide");
     rules.style.display = "flex";
+    nameForm.style.display = "flex";
     roomLabel.textContent = "Rooms";
     // room = "";
   }
