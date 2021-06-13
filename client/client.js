@@ -77,14 +77,14 @@ async function getPokemon() {
     pokeOneIndex = Math.floor(Math.random() * POKE.length);
     pokeTwoIndex = Math.floor(Math.random() * POKE.length);
   }
-  const pokeOne = POKE[pokeOneIndex];
-  const pokeTwo = POKE[pokeTwoIndex];
+  const pokeOneItem = POKE[pokeOneIndex];
+  const pokeTwoItem = POKE[pokeTwoIndex];
   const responseOne = await fetch(
-    `https://pokeapi.co/api/v2/pokemon/${pokeOne}`
+    `https://pokeapi.co/api/v2/pokemon/${pokeOneItem}`
   );
   const dataOne = await responseOne.json();
   const responseTwo = await fetch(
-    `https://pokeapi.co/api/v2/pokemon/${pokeTwo}`
+    `https://pokeapi.co/api/v2/pokemon/${pokeTwoItem}`
   );
   const dataTwo = await responseTwo.json();
   playingCardData.push(dataOne);
