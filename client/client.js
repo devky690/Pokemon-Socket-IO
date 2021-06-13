@@ -168,6 +168,7 @@ const roomMsgForm = document.querySelector("#message-form");
 const playerText = document.querySelector("#player-text");
 const chatResp = document.querySelector("#chat-response");
 const playerCenter = document.querySelector("#player-center");
+const rules = document.querySelector("#rules");
 let room;
 
 //decides if user can play or not
@@ -214,12 +215,14 @@ buttonSubmit.addEventListener("click", () => {
     buttonSubmit.innerText = "Leave Room";
     roomSelect.classList.add("hide");
     playerCenter.classList.remove("hide");
+    rules.style.display = "none";
   } else if (buttonSubmit.innerText === "Leave Room") {
     socket.emit("leave-room", room);
     socket.emit("clean-room", room);
     roomSelect.classList.remove("hide");
     buttonSubmit.innerText = "Join Room";
     playerCenter.classList.add("hide");
+    rules.style.display = "flex";
     // room = "";
   }
 });
