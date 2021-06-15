@@ -51,3 +51,8 @@ Add a user guide page with just the rooms form to join a room and the instructio
 # Deployment
 
 https://pokemon-socket-io.herokuapp.com/ (currently in progress)
+
+# Take Notice
+
+a socket.id is a room by default
+stick to logic in backend to avoid timing issues

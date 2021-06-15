@@ -46,7 +46,7 @@ const POKE = [
 //delete io server when deploying (no localhost:3000)
 //"https://pokemon-socket-io.herokuapp.com"
 //change to "http://localhost:3000" to connect!
-const socket = io("https://pokemon-socket-io.herokuapp.com");
+const socket = io("http://localhost:3000");
 
 let playingCardData = [];
 //loop through pokeObjects while checking the data set of the element before
@@ -234,7 +234,6 @@ buttonSubmit.addEventListener("click", () => {
     rules.style.display = "flex";
     nameForm.style.display = "flex";
     roomLabel.textContent = "Rooms";
-    // room = "";
   }
 });
 
@@ -306,6 +305,16 @@ socket.on("player-joined", message => {
   chatMsg.classList.add("chat-msg");
   chatMsg.innerText = message;
   chatBoard.appendChild(chatMsg);
+});
+
+socket.on("room-full", message => {
+  alert(message);
+  roomSelect.classList.remove("hide");
+  buttonSubmit.innerText = "Join Room";
+  playerCenter.classList.add("hide");
+  rules.style.display = "flex";
+  nameForm.style.display = "flex";
+  roomLabel.textContent = "Rooms";
 });
 
 socket.on("player-left", message => {

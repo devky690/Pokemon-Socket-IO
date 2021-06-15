@@ -110,12 +110,22 @@ io.on("connection", socket => {
   });
 
   socket.on("join-room", room => {
+    let clientNumber = 0;
+    console.log(io.sockets.adapter.rooms);
     socket.join(room);
-    socket.roomID = room;
-    console.log(socket.roomID);
-    console.log(socket.id);
+    clientNumber = io.sockets.adapter.rooms.get(room).size;
+    console.log(io.sockets.adapter.rooms);
+    if (clientNumber > 2) {
+      socket.leave(room);
+      socket.emit("room-full", "room is at max capacity! 2 players only!");
+      clientNumber = io.sockets.adapter.rooms.get(room).size;
+      console.log(clientNumber);
+    } else {
+      socket.roomID = room;
+      socket.to(socket.roomID).emit("player-joined", "enemy connected");
+    }
+    console.log(`Room ${room} playerCount : ${clientNumber}`);
     console.log(roomsMap);
-    socket.to(socket.roomID).emit("player-joined", "enemy connected");
   });
 
   socket.on("leave-room", room => {
