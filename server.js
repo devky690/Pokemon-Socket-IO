@@ -22,10 +22,7 @@ const roomsMap = new Map();
 
 io.on("connection", socket => {
   socket.on("send-name", name => {
-    socket.userName = name;
-    if (socket.userName === undefined) {
-      socket.userName = "Anonymous";
-    }
+    socket.userName = name || "Anonymous";
     console.log(socket.userName);
   });
   socket.on("send-msg", message => {
