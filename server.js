@@ -21,6 +21,7 @@ app.get("/", (req, res) => res.sendFile(__dirname + "/index.html"));
 const roomsMap = new Map();
 
 io.on("connection", socket => {
+  socket.userName = "Anonymous";
   socket.on("send-name", name => {
     socket.userName = name || "Anonymous";
     console.log(socket.userName);
