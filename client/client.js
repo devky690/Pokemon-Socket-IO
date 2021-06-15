@@ -46,7 +46,7 @@ const POKE = [
 //delete io server when deploying (no localhost:3000)
 //"https://pokemon-socket-io.herokuapp.com"
 //change to "http://localhost:3000" to connect!
-const socket = io("http://localhost:3000");
+const socket = io("https://pokemon-socket-io.herokuapp.com");
 
 let playingCardData = [];
 //loop through pokeObjects while checking the data set of the element before
