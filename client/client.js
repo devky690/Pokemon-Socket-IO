@@ -6,10 +6,11 @@
  * 3)(Done) guide in beginning (game not shown, just rooms to join)...make it so that
  * players have to type in their name
  * 4)(Need to Do) allow players to create new rooms (default rooms can stay but rooms i want to add...need to utilize
- * dom manipulation)
+ * dom manipulation...stick to "Room n")
  * 5)(Need to Do) show pokemon facts based on winning and losing pokemon, have "clear stats" button to get rid of these
  * stats
- *
+ *6)(Need to Do) implement playersInRoomCount map to limit number of players to 2 in each room
+ *...show an alert if room count is >= 2...make sure alert only shows when submit room button is pressed
  *
  * FIXME:
  * 1) (FIXED) Sometimes if a player starts a game early without another playing being room the game can never end.
