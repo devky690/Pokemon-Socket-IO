@@ -125,7 +125,6 @@ io.on("connection", socket => {
       socket.to(socket.roomID).emit("player-joined", "enemy connected");
     }
     console.log(`Room ${room} playerCount : ${clientNumber}`);
-    console.log(roomsMap);
   });
 
   socket.on("leave-room", room => {

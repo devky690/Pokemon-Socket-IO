@@ -5,8 +5,8 @@
  *  messages there as well)...add a "clear messages" button to chat,
  * 3)(Done) guide in beginning (game not shown, just rooms to join)...make it so that
  * players have to type in their name
- * 4)(Need to Do) show pokemon facts based on winning and losing pokemon, have "clear stats" button to get rid of these
- * stats
+ * 4)(Need to Do Eventually) Start implementing pokemon cards and utilize stat points from
+ * api to make a better game
  *
  * FIXME:
  * 1) (FIXED) Sometimes if a player starts a game early without another playing being room the game can never end.
