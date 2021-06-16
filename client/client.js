@@ -5,9 +5,7 @@
  *  messages there as well)...add a "clear messages" button to chat,
  * 3)(Done) guide in beginning (game not shown, just rooms to join)...make it so that
  * players have to type in their name
- * 4)(Need to Do) allow players to create new rooms (default rooms can stay but rooms i want to add...need to utilize
- * dom manipulation...stick to "Room n")
- * 5)(Need to Do) show pokemon facts based on winning and losing pokemon, have "clear stats" button to get rid of these
+ * 4)(Need to Do) show pokemon facts based on winning and losing pokemon, have "clear stats" button to get rid of these
  * stats
  *
  * FIXME:
@@ -155,28 +153,49 @@ async function createGame() {
 
 createGame();
 
+/**
+ * ELements for playing the game
+ */
 const buttonSubmit = document.querySelector("#submit-btn");
 const buttonShuffle = document.querySelector("#shuffle-btn");
 const buttonClearChat = document.querySelector("#clear-btn");
 const buttonClearMsg = document.querySelector("#clear-msg-btn");
-const roomSelect = document.querySelector("#room-select");
+const playerCenter = document.querySelector("#player-center");
 const chatBoard = document.querySelector("#chat-board");
+
+/**
+ * Elements for Messaging in game
+ */
+const chatResp = document.querySelector("#chat-response");
 const roomMsgForm = document.querySelector("#message-form");
 const playerText = document.querySelector("#player-text");
-const chatResp = document.querySelector("#chat-response");
-const playerCenter = document.querySelector("#player-center");
+
+/**
+ * ELements concerning rules
+ */
+const roomSelect = document.querySelector("#room-select");
 const rules = document.querySelector("#rules");
+let room;
+
+/**
+ * Elements concerning name
+ */
 const roomLabel = document.querySelector(".room-label");
 const nameForm = document.querySelector(".name-container");
 const nameInput = document.querySelector("#name-input");
-let room;
 
+/**
+ * Name submission to server
+ */
 nameForm.addEventListener("submit", e => {
   e.preventDefault();
   socket.emit("send-name", nameInput.value);
   nameInput.value = "";
 });
 
+/**
+ * Shuffle and Change Pokemon during a round
+ */
 buttonShuffle.addEventListener("click", async () => {
   while (playingCardData.length !== 0) playingCardData.pop();
   while (pokeObjects.length !== 0) pokeObjects.pop();
@@ -186,6 +205,9 @@ buttonShuffle.addEventListener("click", async () => {
   await createGame();
 });
 
+/**
+ * Clear Game Chat
+ */
 buttonClearChat.addEventListener("click", () => {
   const responses = Array.from(chatBoard.children);
   responses.forEach(resp => {
@@ -196,6 +218,10 @@ buttonClearChat.addEventListener("click", () => {
     }
   });
 });
+
+/**
+ * Clear Messaging Chat
+ */
 buttonClearMsg.addEventListener("click", () => {
   //removes all child elements
   //not using innerHtml = "" on chatResp because dont want first child to
@@ -209,7 +235,9 @@ buttonClearMsg.addEventListener("click", () => {
     }
   });
 });
-
+/**
+ * Gain Entrance to the room and get away from rules page
+ */
 buttonSubmit.addEventListener("click", () => {
   //roomSelect.value is the option selected
 
@@ -235,6 +263,9 @@ buttonSubmit.addEventListener("click", () => {
   }
 });
 
+/**
+ * Select the Room to Join and Submit Choice
+ */
 roomMsgForm.addEventListener("submit", e => {
   e.preventDefault();
   socket.emit("send-msg", playerText.value);
@@ -242,8 +273,12 @@ roomMsgForm.addEventListener("submit", e => {
 //this client's move
 let playerMove = {};
 
-//to scale make use of event delegation and utilize e.target and
-//the data attributes to affect click output
+/**
+ * Click on pokemon button and pokemon will print its intro message
+ *
+ * to scale make use of event delegation and utilize e.target and
+ * the data attributes to affect click output
+ */
 document.addEventListener("click", e => {
   if (!e.target.matches(".poke-btn")) return;
   const div = e.target.previousElementSibling.previousElementSibling;
@@ -268,7 +303,9 @@ document.addEventListener("click", e => {
   console.log(div.dataset.pokeName);
 });
 
-//other client will see you as enemy due to broadcast.emit
+/**
+ *  Event triggered from pokemon info sent from another client
+ */
 socket.on("receive-poke-info", () => {
   const chatMsg = document.createElement("div");
   chatMsg.classList.add("chat-msg");
@@ -276,6 +313,9 @@ socket.on("receive-poke-info", () => {
   chatBoard.appendChild(chatMsg);
 });
 
+/**
+ *  Event triggered from message sent from another client
+ */
 socket.on("receive-msg", (message, user) => {
   const chatMsg = document.createElement("div");
   chatMsg.classList.add("chat-msg");
@@ -284,7 +324,9 @@ socket.on("receive-msg", (message, user) => {
   console.log(chatResp);
 });
 
-//get rid of this and turn into an emit callback! so message can go to correct client!
+/**
+ *  Event triggered when game has ended (two player moves selected)
+ */
 socket.on("game-end", (message, enemyPokeType) => {
   console.log(
     `${message} Because the enemy played a pokemon with the ${enemyPokeType} type`
@@ -293,11 +335,16 @@ socket.on("game-end", (message, enemyPokeType) => {
   chatMsg.classList.add("chat-msg");
   chatMsg.innerText = `${message} Because the enemy played a pokemon with the ${enemyPokeType} type`;
   chatBoard.appendChild(chatMsg);
-  //so the user can choose their pokemon again and keep playing
-  // hasPrinted = false;
+
+  /**
+   * So the game can be replayed again
+   */
   socket.emit("clean-room", roomSelect.value);
 });
 
+/**
+ * Event triggered when player joins room
+ */
 socket.on("player-joined", message => {
   const chatMsg = document.createElement("div");
   chatMsg.classList.add("chat-msg");
@@ -305,6 +352,9 @@ socket.on("player-joined", message => {
   chatBoard.appendChild(chatMsg);
 });
 
+/**
+ * Event triggered when room size is greater than 2
+ */
 socket.on("room-full", message => {
   alert(message);
   roomSelect.classList.remove("hide");
@@ -315,6 +365,9 @@ socket.on("room-full", message => {
   roomLabel.textContent = "Rooms";
 });
 
+/**
+ * Event triggered when a player leaves the room
+ */
 socket.on("player-left", message => {
   const chatMsg = document.createElement("div");
   chatMsg.classList.add("chat-msg");
