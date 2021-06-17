@@ -50,7 +50,7 @@ Add a user guide page with just the rooms form to join a room and the instructio
 
 # Deployment
 
-https://pokemon-socket-io.herokuapp.com/ (currently in progress)
+https://pokemon-socket-io.herokuapp.com/ 
 
 # Take Notice
 
