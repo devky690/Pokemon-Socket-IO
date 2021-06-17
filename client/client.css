@@ -239,6 +239,10 @@ li {
     /* not extended all the way because room container above */
     height: 100vh;
   }
+  #rules ul {
+    height: 100%;
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 400px) {
