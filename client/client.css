@@ -243,6 +243,9 @@ li {
     height: 100%;
     width: 100%;
   }
+  #rules ul li::before {
+    transform: translateY(0px);
+  }
 }
 
 @media screen and (max-width: 400px) {
