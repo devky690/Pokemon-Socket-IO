@@ -269,6 +269,7 @@ buttonSubmit.addEventListener("click", () => {
 roomMsgForm.addEventListener("submit", e => {
   e.preventDefault();
   socket.emit("send-msg", playerText.value);
+  playerText.value = "";
 });
 //this client's move
 let playerMove = {};
