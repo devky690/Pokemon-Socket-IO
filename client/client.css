@@ -239,6 +239,7 @@ li {
     /* not extended all the way because room container above */
     height: 100vh;
   }
+  /* so there is no overflow of rules list..fits inside container*/
   #rules ul {
     height: 100%;
     width: 100%;
